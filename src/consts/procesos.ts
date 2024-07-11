@@ -1,0 +1,6 @@
+export const CONTROL_MIGRATORIO = 'Control Migratorio'
+export const TRAMITE_INMIGRACION = 'Trámites de Inmigración'
+export const TRAMITE_NACIONALIZACION = 'Trámites de Nacionalización'
+export const TRAMITE_PASAPORTE = 'Trámites de Pasaportes'
+export const CITAS = 'Citas'
+export const ALERTAS = 'Alertas'
