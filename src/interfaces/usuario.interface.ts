@@ -42,4 +42,4 @@ export interface Procedimiento {
 }
 
 type RimGrupo = 'ANALISIS' | 'DEPURACION' | 'ADMINISTRADORES'
-type TipoProcedimiento = 'PAG' | 'SUB_PAG' | 'DYNAMIC_COMPONENT'
+export type TipoProcedimiento = 'PAG' | 'SUB_PAG' | 'DYNAMIC_COMPONENT'

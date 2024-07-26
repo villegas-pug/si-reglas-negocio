@@ -1,4 +1,6 @@
 export * from './local-storage.const'
+export * from './pages.const'
+export * from './paths-static.const'
 export * from './procesos.const'
 export * from './request-code.const'
 export * from './response-code.const'

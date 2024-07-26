@@ -4,16 +4,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { PrivateRoutes } from './PrivateRoutes'
 import { PublicRoutes } from './PublicRoutes'
 
-import { Login } from '../pages/Login'
+import { Login } from '../pages/Portal'
 import { NotFoundPage } from '../pages/NotFoundPage'
 
-import { NOT_FOUND, PRIVATE, PUBLIC } from '../config/paths'
-import { useReglasNegocio } from '../hooks'
-import { pages } from '../config'
 import { HomePage } from '../pages/HomePage'
 
+import { NOT_FOUND, PRIVATE, PUBLIC } from '../consts'
+
+import { pageComponents } from './Pages'
+import { useAuthComponents } from '../hooks'
+
 export const AppRoutes: FC = () => {
-   const { procesosNegocio } = useReglasNegocio()
+   const { authPag } = useAuthComponents()
 
    return (
       <BrowserRouter basename='srim'>
@@ -21,8 +23,8 @@ export const AppRoutes: FC = () => {
             <Route path={PRIVATE} element={<PrivateRoutes />}>
                <Route index element={ <HomePage />} />
                {
-                  procesosNegocio.map(({ procesoNegocio, path }) => (
-                     <Route key={ procesoNegocio } path={ path } element={ pages[path] } />
+                  authPag.map(({ nombre, rutaPrincipal }) => (
+                     <Route key={ nombre } path={ rutaPrincipal } element={ pageComponents[nombre] } />
                   ))
                }
             </Route>

@@ -6,8 +6,9 @@ import { ReglasNegocioTable } from '../components'
 import { useReglasNegocio } from '../hooks'
 import { formatNumber } from '../helpers'
 import { Fade } from '@mui/material'
+import { FC } from 'react'
 
-export const ControlMigratorioPage = () => {
+const ControlMigratorioSubpag: FC = () => {
    const { controlMigratorio, totalCorrectosControlMigratorio, totalIncorrectosControlMigratorio } = useReglasNegocio()
 
    return (
@@ -42,3 +43,5 @@ export const ControlMigratorioPage = () => {
       </>
    )
 }
+
+export default ControlMigratorioSubpag

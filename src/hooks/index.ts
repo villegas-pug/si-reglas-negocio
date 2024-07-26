@@ -1,2 +1,3 @@
-export { useLocalStorage } from './useLocalStorage'
-export { useReglasNegocio } from './useReglasNegocio'
+export * from './useAuthComponents'
+export * from './useLocalStorage'
+export * from './useReglasNegocio'

@@ -5,7 +5,7 @@ import { formatNumber } from '../helpers'
 import { useReglasNegocio } from '../hooks'
 import { Fade } from '@mui/material'
 
-export const TramitesInmigracionPage = () => {
+const TramitesInmigracionSubpag = () => {
    const { tramitesInmigracion, totalCorrectosTramitesInmigracion, totalIncorrectosTramitesInmigracion } = useReglasNegocio()
 
    return (
@@ -39,3 +39,5 @@ export const TramitesInmigracionPage = () => {
       </>
    )
 }
+
+export default TramitesInmigracionSubpag
