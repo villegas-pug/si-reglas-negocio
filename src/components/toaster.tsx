@@ -2,12 +2,12 @@ import { FC, useEffect } from 'react'
 
 import { message } from 'antd'
 
-import { useNotifyStore } from '../stores'
+import { useApiStatus } from '../stores'
 
 export const Toaster: FC = () => {
    const [messageApi, contextHolder] = message.useMessage()
 
-   const { isLoading, type, message: content } = useNotifyStore()
+   const { isLoading, type, message: content } = useApiStatus()
 
    useEffect(() => {
       if (!isLoading && content) {

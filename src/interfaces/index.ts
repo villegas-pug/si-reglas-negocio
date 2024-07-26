@@ -1,6 +1,6 @@
 export * from './data-response.interface'
+export * from './header-response.interface'
 export * from './local-storage.d'
 export * from './message-type.interface'
 export * from './regla-negocio.d'
-export * from './user.d'
 export * from './usuario.interface'

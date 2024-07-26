@@ -75,7 +75,7 @@ export const Login = () => {
                >
                   <Form onFinish={ onFinish }>
                      <Form.Item
-                        name='user'
+                        name='login'
                         rules={[{ required: true, message: '¡Ingresar usuario!' }]}
                      >
                         <Input size='large' suffix={<UserOutlined />} placeholder='Usuario' autoFocus />

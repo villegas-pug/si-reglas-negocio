@@ -4,12 +4,22 @@ import { CardChart } from '../components/card-proceso-negocio'
 
 import { useReglasNegocio } from '../hooks'
 import { PieProcesoNegocio } from '../components'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Fade } from '@mui/material'
 import { formatNumber } from '../helpers'
+import { useAuthStore } from '../stores'
 
 export const HomePage = () => {
    const { procesosNegocio } = useReglasNegocio()
+   const { userAuth, findByLogin } = useAuthStore()
+
+   useEffect(() => {
+      findByLogin('srim')
+   }, [])
+
+   useEffect(() => {
+      console.log({ userAuth })
+   }, [userAuth])
 
    const chartsPie = useMemo(() => (
       procesosNegocio.reduce((map, { procesoNegocio, totalRegCorrectos, totalRegIncorrectos }) => {

@@ -4,11 +4,12 @@ import esES from 'antd/locale/es_ES'
 import { AppRoutes } from './rutes/AppRoutes'
 import { Toaster } from './components'
 
-import { NotifyApiInterceptor } from './interceptors'
+import { ApiStatusInterceptor, RequestTokenInterceptor } from './interceptors'
 
 import './global.css'
 
-NotifyApiInterceptor()
+ApiStatusInterceptor()
+RequestTokenInterceptor()
 
 function App () {
    return (
