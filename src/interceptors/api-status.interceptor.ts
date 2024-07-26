@@ -4,11 +4,12 @@ import { useApiStatus } from '../stores'
 
 import { api } from '../config'
 import { HeaderResponse, Response } from '../interfaces'
-import { responseCode } from '../consts'
+import { requestCode, responseCode } from '../consts'
 
 export const ApiStatusInterceptor = () => {
    api.interceptors.request.use(
       (request) => {
+         useApiStatus.getState().apiReset()
          useApiStatus.getState().apiLoading(true)
          return request
       }
@@ -29,8 +30,18 @@ export const ApiStatusInterceptor = () => {
          return response
       },
       (err) => {
+         console.log({ err })
+
          useApiStatus.getState().apiLoading(false)
-         useApiStatus.getState().apiMessage(responseCode[err.response.status], 'error')
+
+         const statusResponse = err.response?.status
+
+         if (statusResponse) { // Si es error del servidor
+            useApiStatus.getState().apiMessage(responseCode[err.response?.status], 'error')
+         } else {
+            useApiStatus.getState().apiMessage(requestCode[err.code], 'error')
+         }
+
          return Promise.reject(err)
       }
    )

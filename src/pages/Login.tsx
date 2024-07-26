@@ -12,11 +12,13 @@ import { UserOutlined } from '@ant-design/icons'
 import { useAuthStore } from '../stores/auth'
 import { Usuario } from '../interfaces'
 import { Fade } from '@mui/material'
+import { useApiStatus } from '../stores'
 
 const { Title } = Typography
 
 export const Login = () => {
    const { login } = useAuthStore()
+   const { isLoading } = useApiStatus()
 
    const onFinish = async (user: Usuario) => {
       login(user)
@@ -92,7 +94,11 @@ export const Login = () => {
                         size='large'
                         prefix='a'
                         htmlType='submit'
-                     >Ingresar</Button>
+                        loading={ isLoading }
+                        disabled={ isLoading }
+                     >
+                        Ingresar
+                     </Button>
                   </Form>
                </Flex>
             </Col>
