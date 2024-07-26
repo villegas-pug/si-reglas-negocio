@@ -3,14 +3,14 @@ import { FC } from 'react'
 import { FloatButton } from 'antd'
 import { LogoutOutlined, HomeOutlined } from '@ant-design/icons'
 
-import { useAuth } from '../store'
+import { useAuthStore } from '../stores/auth'
 import { useNavigate } from 'react-router-dom'
 import { PRIVATE, PUBLIC } from '../config/paths'
 
 export const LogoutButton: FC = () => {
    const navigate = useNavigate()
 
-   const { logout } = useAuth()
+   const { logout } = useAuthStore()
 
    const handleLogout = () => {
       logout()

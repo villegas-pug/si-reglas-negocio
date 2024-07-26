@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom'
 
-import { useAuth } from '../store/useAuth'
+import { useAuthStore } from '../stores/auth/auth-store'
 import { PUBLIC } from '../config/paths'
 import { LogoutButton } from '../components'
 
-export const PrivateRoute = () => {
-   const { isAuth } = useAuth()
+export const PrivateRoutes = () => {
+   const { isAuth } = useAuthStore()
 
    if (!isAuth) return <Navigate to={ PUBLIC } />
 

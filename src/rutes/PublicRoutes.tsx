@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from 'react-router-dom'
 
-import { useAuth } from '../store/useAuth'
+import { useAuthStore } from '../stores/auth/auth-store'
 import { PRIVATE } from '../config/paths'
 
-export const PublicRoute = () => {
-   const { isAuth } = useAuth()
+export const PublicRoutes = () => {
+   const { isAuth } = useAuthStore()
 
    if (isAuth) return <Navigate to={ PRIVATE } />
 

@@ -1,35 +1,24 @@
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { toast } from 'react-hot-toast'
-
-import { PrivateRoute } from './PrivateRoute'
-import { PublicRoute } from './PublicRoute'
+import { PrivateRoutes } from './PrivateRoutes'
+import { PublicRoutes } from './PublicRoutes'
 
 import { Login } from '../pages/Login'
 import { NotFoundPage } from '../pages/NotFoundPage'
 
-import { pages } from '../config/pages'
-import { useAuth } from '../store'
-import { HomePage } from '../pages/HomePage'
-
 import { NOT_FOUND, PRIVATE, PUBLIC } from '../config/paths'
 import { useReglasNegocio } from '../hooks'
+import { pages } from '../config'
+import { HomePage } from '../pages/HomePage'
 
-export const DashboardRoute: FC = () => {
-   const { loading, isAuth, error } = useAuth()
+export const AppRoutes: FC = () => {
    const { procesosNegocio } = useReglasNegocio()
-
-   useEffect(() => {
-      if (!loading) return
-      if (isAuth) toast.success(error)
-      if (!isAuth) toast.error(error)
-   }, [loading])
 
    return (
       <BrowserRouter basename='srim'>
          <Routes>
-            <Route path={PRIVATE} element={<PrivateRoute />}>
+            <Route path={PRIVATE} element={<PrivateRoutes />}>
                <Route index element={ <HomePage />} />
                {
                   procesosNegocio.map(({ procesoNegocio, path }) => (
@@ -37,13 +26,12 @@ export const DashboardRoute: FC = () => {
                   ))
                }
             </Route>
-            <Route path={ PUBLIC } element={ <PublicRoute /> }>
+            <Route path={ PUBLIC } element={ <PublicRoutes /> }>
                <Route index element={<Login />} />
             </Route>
-
-            {/* NOT-FOUND  */}
             <Route path={ NOT_FOUND } element={ <NotFoundPage /> } />
          </Routes>
       </BrowserRouter>
+
    )
 }

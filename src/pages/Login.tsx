@@ -9,16 +9,16 @@ import {
 } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 
-import { useAuth } from '../store'
-import { User } from '../interfaces'
+import { useAuthStore } from '../stores/auth'
+import { Usuario } from '../interfaces'
 import { Fade } from '@mui/material'
 
 const { Title } = Typography
 
 export const Login = () => {
-   const login = useAuth(state => state.login)
+   const { login } = useAuthStore()
 
-   const onFinish = async (user: User) => {
+   const onFinish = async (user: Usuario) => {
       login(user)
    }
 
