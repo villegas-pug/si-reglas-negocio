@@ -123,7 +123,7 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
    return (
       <>
          <Space>
-            <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 12 }} scroll={{ y: 'calc(100vh - 315px)' }} />
+            <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 8 }} scroll={{ y: 'calc(100vh - 470px)' }} />
          </Space>
 
          <CustomModal isModalOpen={ isOpenModa } setIsModalOpen={ () => setIsOpenModa(false) } >

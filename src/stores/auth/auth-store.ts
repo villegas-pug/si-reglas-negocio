@@ -2,7 +2,7 @@ import { HeaderResponse } from './../../interfaces'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { localStorage } from '../../consts/local-storage.const'
+import { localStorage } from '../../consts/localstorage-keys.const'
 import { Usuario } from '../../interfaces'
 import { api } from '../../config'
 import { findUsuarioByLogin } from '../../services'

@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom'
 
 import { useAuthStore } from '../stores/auth/auth-store'
-import { PUBLIC } from '../config/paths'
-import { LogoutButton } from '../components'
+import { PUBLIC } from '../consts'
+import { LayoutApp, LogoutButton } from '../components'
+import { Suspense } from 'react'
 
 export const PrivateRoutes = () => {
    const { isAuth } = useAuthStore()
@@ -11,8 +12,12 @@ export const PrivateRoutes = () => {
 
    return (
       <>
-         <Outlet />
-         <LogoutButton />
+         <LayoutApp>
+            <Suspense fallback={ <h1>Loading...</h1> }>
+               <Outlet />
+            </Suspense>
+            <LogoutButton />
+         </LayoutApp>
       </>
    )
 }

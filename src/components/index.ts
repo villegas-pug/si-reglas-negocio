@@ -1,5 +1,6 @@
 export * from './card-proceso-negocio'
 export * from './editor-sql'
+export * from './layout/layout.component'
 export * from './logout-button'
 export * from './modal'
 export * from './pie-proceso-negocio'

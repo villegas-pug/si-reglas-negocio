@@ -30,8 +30,6 @@ export const ApiStatusInterceptor = () => {
          return response
       },
       (err) => {
-         console.log({ err })
-
          useApiStatus.getState().apiLoading(false)
 
          const statusResponse = err.response?.status

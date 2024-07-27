@@ -6,6 +6,5 @@ export const pages = {
       CONTROL_MIGRATORIO: 'Control Migratorio',
       TRAMITE_INMIGRACION: 'Trámites de Inmigración',
       ALERTAS: 'Alertas'
-   },
-   DYNAMIC_COMPONENT: {}
+   }
 }

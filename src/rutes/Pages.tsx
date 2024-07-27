@@ -1,6 +1,6 @@
 import { lazy, ReactElement } from 'react'
 
-import { pages } from '../consts'
+import { pages as namePages } from '../consts'
 
 // ► Pages
 const ReglasConsistenciaPage = lazy(() => import('../pages/ReglasConsistenciaPage'))
@@ -10,7 +10,7 @@ const ControlMigratorioSubpag = lazy(() => import('../pages/ControlMigratorioSub
 const AlertasSubpag = lazy(() => import('../pages/AlertasSubpag'))
 const TramitesInmigracionSubpag = lazy(() => import('../pages/TramitesInmigracionSubpag'))
 
-const { PAG, SUB_PAG } = pages
+const { PAG, SUB_PAG } = namePages
 
 const {
    REGLAS_CONSISTENCIA
@@ -26,7 +26,7 @@ type PageComponent = {
    [key: string]: ReactElement
 }
 
-export const pageComponents: PageComponent = {
+export const pages: PageComponent = {
    // ► Pages:
    [REGLAS_CONSISTENCIA]: <ReglasConsistenciaPage />,
 

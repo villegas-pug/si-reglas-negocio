@@ -1,5 +1,5 @@
 {
-  "name": "si-jzpiura",
+  "name": "si-reglas-negocio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,9 +20,11 @@
     "ace-builds": "^1.35.2",
     "antd": "^5.19.0",
     "axios": "^1.7.2",
+    "object.groupby": "^1.0.3",
     "react": "18.3.1",
     "react-ace": "^12.0.0",
     "react-dom": "18.3.1",
+    "react-icons": "^5.2.1",
     "react-router-dom": "6.24.0",
     "sql-formatter": "^15.3.2",
     "zustand": "^4.5.4"

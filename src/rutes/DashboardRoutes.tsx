@@ -1,20 +1,20 @@
 import { FC } from 'react'
 import { Route } from 'react-router-dom'
 
-import { pages } from '../config/pages'
+import { pages } from '../rutes/Pages'
 
-import { useReglasNegocio } from '../hooks'
+import { useAuthComponents } from '../hooks'
 
 export const DashboardRoutes: FC = () => {
-   const { procesosNegocio } = useReglasNegocio()
+   const { authPag } = useAuthComponents()
 
    return (
-      <Route path='/'>
+      <>
          {
-            procesosNegocio.map(({ procesoNegocio, path }) => (
-               <Route key={ procesoNegocio } path={ path } element={ pages[path] } />
+            authPag.map(({ idProcedimiento, nombre, rutaPrincipal }) => (
+               <Route key={ idProcedimiento } path={ rutaPrincipal } element={ pages[nombre] } />
             ))
          }
-      </Route>
+      </>
    )
 }

@@ -13,7 +13,7 @@ RequestTokenInterceptor()
 
 function App () {
    return (
-      <ConfigProvider locale={ esES }>
+      <ConfigProvider locale={esES}>
          <AppRoutes />
          <Toaster />
       </ConfigProvider>

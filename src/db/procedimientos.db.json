@@ -1,0 +1,76 @@
+{
+   "usrProcedimiento": [
+      {
+         "idUsrProcedimiento": 4,
+         "procedimiento": {
+            "idProcedimiento": 3,
+            "tipo": "PAG",
+            "nombre": "Reglas de Consistencia",
+            "informacion": "",
+            "descripcion": "Reglas de consistencia de los procesos de migraciones.",
+            "icono": "",
+            "activo": true,
+            "rutaPag": "/reglas-consistencia",
+            "rutaSubpag": "",
+            "secuencia": 1,
+            "rutaPrincipal": "/reglas-consistencia"
+         },
+         "denegado": true,
+         "fechaRegistro": "2024-07-24T16:45:29.803+00:00"
+      },
+      {
+         "idUsrProcedimiento": 3,
+         "procedimiento": {
+            "idProcedimiento": 4,
+            "tipo": "SUB_PAG",
+            "nombre": "Control Migratorio",
+            "informacion": "",
+            "descripcion": "Registros migratorios de ciudadanos nacionales y extranjeros.",
+            "icono": "",
+            "activo": true,
+            "rutaPag": "/reglas-consistencia",
+            "rutaSubpag": "/control-migratorio",
+            "secuencia": 1,
+            "rutaPrincipal": "/reglas-consistencia/control-migratorio"
+         },
+         "denegado": true,
+         "fechaRegistro": "2024-07-24T16:45:29.803+00:00"
+      },
+      {
+         "idUsrProcedimiento": 5,
+         "procedimiento": {
+            "idProcedimiento": 5,
+            "tipo": "SUB_PAG",
+            "nombre": "Trámites de Inmigración",
+            "informacion": "",
+            "descripcion": "Registros trámites de ciudadanos extranjeros.",
+            "icono": "",
+            "activo": true,
+            "rutaPag": "/reglas-consistencia",
+            "rutaSubpag": "/tramites-inmigracion",
+            "secuencia": 2,
+            "rutaPrincipal": "/reglas-consistencia/tramites-inmigracion"
+         },
+         "denegado": true,
+         "fechaRegistro": "2024-07-24T16:45:29.803+00:00"
+      },
+      {
+         "idUsrProcedimiento": 2,
+         "procedimiento": {
+            "idProcedimiento": 6,
+            "tipo": "SUB_PAG",
+            "nombre": "Alertas",
+            "informacion": "",
+            "descripcion": "Registro de alertas de personas nacionales y extranjeras.",
+            "icono": "",
+            "activo": true,
+            "rutaPag": "/reglas-consistencia",
+            "rutaSubpag": "/alertas",
+            "secuencia": 3,
+            "rutaPrincipal": "/reglas-consistencia/alertas"
+         },
+         "denegado": true,
+         "fechaRegistro": "2024-07-24T16:45:29.803+00:00"
+      }
+   ]
+}
