@@ -7,9 +7,11 @@ import { useReglasNegocio } from '../../hooks'
 import { formatNumber } from '../../helpers'
 import { Fade } from '@mui/material'
 import { FC } from 'react'
+import { useReglaNegocioStore } from '../../stores'
 
 const ControlMigratorioSubpag: FC = () => {
    const { controlMigratorio, totalCorrectosControlMigratorio, totalIncorrectosControlMigratorio } = useReglasNegocio()
+   const { reglaNegocioInternalDb } = useReglaNegocioStore()
 
    return (
       <>
@@ -39,7 +41,7 @@ const ControlMigratorioSubpag: FC = () => {
             </Flex>
          </Fade>
 
-         <ReglasNegocioTable data={controlMigratorio} />
+         <ReglasNegocioTable data={reglaNegocioInternalDb} />
       </>
    )
 }

@@ -1,0 +1,5 @@
+export const tipoScript = {
+   DETECCION: 'DETECCION',
+   VALIDACION: 'VALIDACION',
+   CORRECCION: 'CORRECCION'
+}

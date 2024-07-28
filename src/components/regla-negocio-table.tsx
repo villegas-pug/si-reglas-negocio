@@ -2,14 +2,14 @@ import { FC, useRef, useState } from 'react'
 
 import type { TableColumnsType } from 'antd'
 import { Space, Table, Tag, Tooltip } from 'antd'
-import { ReglaNegocio } from '../interfaces'
+import { ReglaNegocioInternal } from '../interfaces'
 import { CheckCircleOutlined, CloseCircleOutlined, ConsoleSqlOutlined, PieChartOutlined } from '@ant-design/icons'
 import { CustomModal } from './modal'
 import { Editor } from './editor-sql'
 import { formatNumber } from '../helpers'
 
 type Props = {
-   data: ReglaNegocio[]
+   data: ReglaNegocioInternal[]
 }
 
 export const ReglasNegocioTable: FC<Props> = ({ data }) => {
@@ -21,18 +21,18 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
       setIsOpenModa(true)
    }
 
-   const columns: TableColumnsType<ReglaNegocio> = [
+   const columns: TableColumnsType<ReglaNegocioInternal> = [
       {
          title: 'Id Regla',
-         dataIndex: 'idRegla',
-         key: 'idRegla',
-         sorter: (a, b) => a.idRegla.localeCompare(b.idRegla),
+         dataIndex: 'idRN',
+         key: 'idRN',
+         sorter: (a, b) => a.idRN.localeCompare(b.idRN),
          ellipsis: true,
          align: 'center'
       }, {
          title: 'Tablas',
-         dataIndex: 'tabla',
-         key: 'Tabla',
+         dataIndex: 'tablas',
+         key: 'tablas',
          align: 'center'
       }, {
          title: 'Campos',
@@ -42,9 +42,9 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          width: 250
       }, {
          title: 'Dimensión de Regla',
-         dataIndex: 'dimensionRegla',
          key: 'dimensionRegla',
-         align: 'center'
+         align: 'center',
+         render: (_, record) => record.dimensionRegla.nombre
       }, {
          title: 'Definición de Regla',
          dataIndex: 'definicionRegla',
@@ -52,19 +52,17 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          align: 'justify',
          width: 500
       }, {
-         title: 'Total Registros Correctos',
-         dataIndex: 'totalRegCorrectos',
-         key: 'totalRegCorrectos',
+         title: 'Validación Inconsistencia',
+         key: 'totalValidacionScript',
          align: 'right',
-         render: (_, record) => formatNumber(record.totalRegCorrectos),
-         sorter: (a, b) => a.totalRegCorrectos - b.totalRegCorrectos
+         render: (_, record) => formatNumber(record.totalValidacionScript),
+         sorter: (a, b) => a.totalValidacionScript - b.totalValidacionScript
       }, {
-         title: 'Total Registros Incorrectos',
-         dataIndex: 'totalRegIncorrectos',
+         title: 'Detección Inconsisitencia',
          key: 'totalRegIncorrectos',
          align: 'right',
-         render: (_, record) => formatNumber(record.totalRegIncorrectos),
-         sorter: (a, b) => a.totalRegIncorrectos - b.totalRegIncorrectos
+         render: (_, record) => formatNumber(record.totalDeteccionScript),
+         sorter: (a, b) => a.totalDeteccionScript - b.totalDeteccionScript
       }, {
          title: 'Status Regla',
          dataIndex: 'statusRegla',
@@ -72,48 +70,47 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          align: 'center',
          filters: [{ text: 'APROBADO', value: 'APROBADO' }, { text: 'OBSERVADO', value: 'OBSERVADO' }],
          filterSearch: true,
-         onFilter: (value, record) => record.statusRegla.includes(value as string),
-         sorter: (a, b) => a.statusRegla.localeCompare(b.statusRegla),
-         render: (_, record) => (
+         onFilter: (value, record) => record.statusRegla.nombre.includes(value as string),
+         sorter: (a, b) => a.statusRegla.nombre.localeCompare(b.statusRegla.nombre),
+         render: (_, { statusRegla }) => (
 
-            record.statusRegla === 'APROBADO'
-               ? (<Tag icon={<CheckCircleOutlined />} color="success">{ record.statusRegla }</Tag>)
-               : (<Tag icon={<CloseCircleOutlined />} color="error">{ record.statusRegla }</Tag>
-               )
+            statusRegla.nombre === 'APROBADO'
+               ? (<Tag icon={<CheckCircleOutlined />} color="success">{ statusRegla.nombre }</Tag>)
+               : (<Tag icon={<CloseCircleOutlined />} color="error">{ statusRegla.nombre }</Tag>)
          )
       }, {
-         title: 'Script SQL Validación',
+         title: 'Script Validación',
          key: 'scriptSQLValidacion',
          align: 'center',
          render: (_, record) => (
             <Tooltip title='Ver sentencia SQL'>
                <ConsoleSqlOutlined
                   style={{ fontSize: 25 }}
-                  onClick={() => showSentenciaSql(record.scriptSQLHallazgo)}
+                  onClick={() => showSentenciaSql(record.validacionScript)}
                />
             </Tooltip>
          )
       }, {
-         title: 'Script SQL Hallazgo',
+         title: 'Script Detección',
          key: 'scriptSQLValidacion',
          align: 'center',
          render: (_, record) => (
             <Tooltip title='Ver sentencia SQL'>
                <ConsoleSqlOutlined
                   style={{ fontSize: 25 }}
-                  onClick={() => showSentenciaSql(record.scriptSQLHallazgo)}
+                  onClick={() => showSentenciaSql(record.deteccionScript)}
                />
             </Tooltip>
          )
       }, {
-         title: 'Estadístico',
-         key: 'estadistico',
+         title: 'Proyección Estadística',
+         key: 'Proyección Estadística',
          align: 'center',
          render: (_, record) => (
             <Tooltip title='Ver estadisticas'>
                <PieChartOutlined
                   style={{ fontSize: 25 }}
-                  onClick={() => showSentenciaSql(record.scriptSQLValidacion)}
+                  onClick={() => showSentenciaSql(record.deteccionScript)}
                />
             </Tooltip>
          )

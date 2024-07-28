@@ -1,4 +1,4 @@
-import { ReglasNegocioTable } from '../../components'
+/* import { ReglasNegocioTable } from '../../components' */
 import { Avatar, Card, Flex } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import { formatNumber } from '../../helpers'
@@ -35,7 +35,7 @@ const TramitesInmigracionSubpag = () => {
                </Card>
             </Flex>
          </Fade>
-         <ReglasNegocioTable data={ tramitesInmigracion } />
+         {/* <ReglasNegocioTable data={ tramitesInmigracion } /> */}
       </>
    )
 }

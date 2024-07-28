@@ -2,20 +2,17 @@ import { FC, ReactElement } from 'react'
 
 import { Avatar, Card, Divider } from 'antd'
 import { SendOutlined } from '@ant-design/icons'
-import { useNavigate } from 'react-router-dom'
 
 const { Meta } = Card
 
 type Props = {
    title: string
    descriptions: string[]
-   path: string
    chart: ReactElement
+   navigate: () => Promise<void>
 }
 
-export const CardChart: FC<Props> = ({ title, descriptions, path, chart }) => {
-   const navigate = useNavigate()
-
+export const CardChart: FC<Props> = ({ title, descriptions, chart, navigate }) => {
    return (
       <Card
          style={{ width: 400 }}
@@ -24,7 +21,7 @@ export const CardChart: FC<Props> = ({ title, descriptions, path, chart }) => {
             <SendOutlined
                key={ title }
                style={{ fontSize: 30 }}
-               onClick={() => { navigate(path) }}
+               onClick={() => { navigate() }}
             />
          ]}
       >
