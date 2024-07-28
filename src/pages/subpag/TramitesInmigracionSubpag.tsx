@@ -1,15 +1,12 @@
+import { ReglasNegocioTable } from '../../components'
 import { Avatar, Card, Flex } from 'antd'
 import Meta from 'antd/es/card/Meta'
-
-import { ReglasNegocioTable } from '../components'
-
-import { useReglasNegocio } from '../hooks'
-import { formatNumber } from '../helpers'
+import { formatNumber } from '../../helpers'
+import { useReglasNegocio } from '../../hooks'
 import { Fade } from '@mui/material'
-import { FC } from 'react'
 
-const ControlMigratorioSubpag: FC = () => {
-   const { controlMigratorio, totalCorrectosControlMigratorio, totalIncorrectosControlMigratorio } = useReglasNegocio()
+const TramitesInmigracionSubpag = () => {
+   const { tramitesInmigracion, totalCorrectosTramitesInmigracion, totalIncorrectosTramitesInmigracion } = useReglasNegocio()
 
    return (
       <>
@@ -19,29 +16,28 @@ const ControlMigratorioSubpag: FC = () => {
                   <Meta
                      avatar={<Avatar size={ 50 } src='https://w7.pngwing.com/pngs/236/944/png-transparent-contract-rights-rule-paragraphs-law-regulations-bid-icon-thumbnail.png' />}
                      title='Total Reglas'
-                     description={ formatNumber(controlMigratorio.length) }
+                     description={ formatNumber(tramitesInmigracion.length) }
                   />
                </Card>
                <Card style={{ width: 350, marginTop: 16 }}>
                   <Meta
                      avatar={<Avatar size={ 50 } src='https://i.pngimg.me/thumb/f/720/m2H7K9d3d3N4Z5i8.jpg' />}
                      title='Registros Correctos'
-                     description={ formatNumber(totalCorrectosControlMigratorio!) }
+                     description={ formatNumber(totalCorrectosTramitesInmigracion!) }
                   />
                </Card>
                <Card style={{ width: 350, marginTop: 16 }}>
                   <Meta
                      avatar={<Avatar size={ 50 } src='https://e7.pngegg.com/pngimages/269/127/png-clipart-computer-icons-ok-miscellaneous-trademark-thumbnail.png' />}
                      title='Registros Incorrectos'
-                     description={ formatNumber(totalIncorrectosControlMigratorio!) }
+                     description={ formatNumber(totalIncorrectosTramitesInmigracion!) }
                   />
                </Card>
             </Flex>
          </Fade>
-
-         <ReglasNegocioTable data={controlMigratorio} />
+         <ReglasNegocioTable data={ tramitesInmigracion } />
       </>
    )
 }
 
-export default ControlMigratorioSubpag
+export default TramitesInmigracionSubpag

@@ -6,7 +6,7 @@ import { PRIVATE } from '../consts'
 export const PublicRoutes = () => {
    const { isAuth } = useAuthStore()
 
-   if (isAuth) return <Navigate to={PRIVATE} />
+   if (isAuth) return <Navigate to={PRIVATE} replace />
 
    return (
       <>

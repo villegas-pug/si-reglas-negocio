@@ -6,9 +6,9 @@ import { pages as namePages } from '../consts'
 const ReglasConsistenciaPage = lazy(() => import('../pages/ReglasConsistenciaPage'))
 
 // ► Subpag
-const ControlMigratorioSubpag = lazy(() => import('../pages/ControlMigratorioSubpag'))
-const AlertasSubpag = lazy(() => import('../pages/AlertasSubpag'))
-const TramitesInmigracionSubpag = lazy(() => import('../pages/TramitesInmigracionSubpag'))
+const ControlMigratorioSubpag = lazy(() => import('../pages/subpag/ControlMigratorioSubpag'))
+const AlertasSubpag = lazy(() => import('../pages/subpag/AlertasSubpag'))
+const TramitesInmigracionSubpag = lazy(() => import('../pages/subpag/TramitesInmigracionSubpag'))
 
 const { PAG, SUB_PAG } = namePages
 

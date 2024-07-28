@@ -8,7 +8,7 @@ import { Suspense } from 'react'
 export const PrivateRoutes = () => {
    const { isAuth } = useAuthStore()
 
-   if (!isAuth) return <Navigate to={ PUBLIC } />
+   if (!isAuth) return <Navigate to={ PUBLIC } replace />
 
    return (
       <>
