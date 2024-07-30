@@ -1,25 +1,35 @@
-import { pages } from '../consts'
-import reglasNegocioDb from '../db/reglas-negocio.json'
+import { useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 
-const { SUB_PAG } = pages
+import { useProcesoStore, useReglaNegocioStore } from '../stores'
 
 export const useReglasNegocio = () => {
-   const procesosNegocio = reglasNegocioDb['Procesos Negocio']
-   const controlMigratorio = reglasNegocioDb['Control Migratorio']
-   const tramitesInmigracion = reglasNegocioDb['Trámites Inmigración']
+   const params = useParams()
 
-   const totalCorrectosControlMigratorio = procesosNegocio.find((proceso) => proceso.procesoNegocio === SUB_PAG.CONTROL_MIGRATORIO)?.totalRegCorrectos
-   const totalIncorrectosControlMigratorio = controlMigratorio.reduce((acc, { totalRegIncorrectos }) => (acc += totalRegIncorrectos), 0)
-   const totalCorrectosTramitesInmigracion = procesosNegocio.find((proceso) => proceso.procesoNegocio === SUB_PAG.TRAMITE_INMIGRACION)?.totalRegCorrectos
-   const totalIncorrectosTramitesInmigracion = tramitesInmigracion.reduce((acc, { totalRegIncorrectos }) => (acc += totalRegIncorrectos), 0)
+   const { procesoDb } = useProcesoStore()
+   const { reglaNegocioInternalDb, findReglasNegocioByProceso } = useReglaNegocioStore()
+
+   // Handler's
+   const findReglasNegocioByProcesoOfCurrPath = useCallback(() => {
+      const procesoOfCurrPath = params['*']?.split('/')[1]
+
+      if (!procesoOfCurrPath) return
+
+      const proceso = procesoDb.find(({ rutaPrincipal }) => rutaPrincipal.includes(procesoOfCurrPath))
+
+      findReglasNegocioByProceso({ idProceso: proceso?.idProceso })
+   }, [procesoDb])
+
+   // Dep's
+   const totalReglasOfCurrPath = reglaNegocioInternalDb?.length || 0
+   const granTotalValidacionOfCurrPath = reglaNegocioInternalDb.reduce((total, { totalValidacionScript }) => total + totalValidacionScript, 0)
+   const granTotalDeteccionOfCurrPath = reglaNegocioInternalDb.reduce((total, { totalDeteccionScript }) => total + totalDeteccionScript, 0)
 
    return {
-      procesosNegocio,
-      controlMigratorio,
-      tramitesInmigracion,
-      totalCorrectosControlMigratorio,
-      totalIncorrectosControlMigratorio,
-      totalCorrectosTramitesInmigracion,
-      totalIncorrectosTramitesInmigracion
+      totalReglasOfCurrPath,
+      granTotalValidacionOfCurrPath,
+      granTotalDeteccionOfCurrPath,
+
+      findReglasNegocioByProcesoOfCurrPath
    }
 }

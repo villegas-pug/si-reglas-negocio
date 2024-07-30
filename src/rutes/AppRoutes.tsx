@@ -23,7 +23,7 @@ export const AppRoutes: FC = () => {
       <BrowserRouter basename='srim'>
          <Routes>
             <Route element={<PrivateRoutes />}>
-               <Route path={ PRIVATE } element={<DashboardRoutes />} />
+               <Route path={ `${PRIVATE}/*` } element={<DashboardRoutes />} />
             </Route>
             <Route path={ PUBLIC } element={ <PublicRoutes /> }>
                <Route index element={<Login />} />

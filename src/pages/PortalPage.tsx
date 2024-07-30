@@ -12,13 +12,15 @@ import { UserOutlined } from '@ant-design/icons'
 import { useAuthStore } from '../stores/auth'
 import { Usuario } from '../interfaces'
 import { Fade } from '@mui/material'
-import { useApiStatus } from '../stores'
+import { useApiStatusStore } from '../stores'
+
+import bgPortal from '../assets/bg-portal-v1.jpg'
 
 const { Title } = Typography
 
 export const Login = () => {
    const { login } = useAuthStore()
-   const { isLoading } = useApiStatus()
+   const { isLoading } = useApiStatusStore()
 
    const onFinish = async (user: Usuario) => {
       login(user)
@@ -30,7 +32,7 @@ export const Login = () => {
             <Col
                span={ 18 }
                style={{
-                  background: 'linear-gradient(45deg, #010a5f 0, #0172bb 100%)',
+                  background: `url(${bgPortal})`,
                   backgroundSize: 'cover',
                   clipPath: 'polygon(0 0%, 100% 0, 96% 100%, 0% 100%)'
                }}
@@ -73,9 +75,16 @@ export const Login = () => {
                <Flex
                   justify='center'
                   align='center'
-                  style={{ height: '100%', backgroundColor: '#EAEAEA' }}
+                  style={{
+                     height: '100%',
+                     /* backgroundColor: '#EAEAEA' */
+                     background: 'linear-gradient(45deg, #0172bb 0, #010a5f 100%)'
+                  }}
                >
-                  <Form onFinish={ onFinish }>
+                  <Form
+                     onFinish={onFinish}
+                     style={{ width: 300 }}
+                  >
                      <Form.Item
                         name='login'
                         rules={[{ required: true, message: '¡Ingresar usuario!' }]}

@@ -5,6 +5,7 @@ import { AppRoutes } from './rutes/AppRoutes'
 import { Toaster } from './components'
 
 import { ApiStatusInterceptor, RequestTokenInterceptor } from './interceptors'
+import { theme } from './config'
 
 import './global.css'
 
@@ -13,7 +14,7 @@ RequestTokenInterceptor()
 
 function App () {
    return (
-      <ConfigProvider locale={esES}>
+      <ConfigProvider locale={esES} theme={ theme }>
          <AppRoutes />
          <Toaster />
       </ConfigProvider>

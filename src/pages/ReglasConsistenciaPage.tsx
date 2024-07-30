@@ -8,14 +8,10 @@ import { PieProcesoNegocio } from '../components'
 
 import { Fade } from '@mui/material'
 import { formatNumber } from '../helpers'
-import { useProcesoStore, useReglaNegocioStore } from '../stores'
-import { useNavigate } from 'react-router-dom'
+import { useProcesoStore } from '../stores'
 
 const ReglasConsistenciaPage: FC = () => {
    const { procesoDb, findAllRNProceso } = useProcesoStore()
-   const { findReglasNegocioByProceso } = useReglaNegocioStore()
-
-   const navigate = useNavigate()
 
    useEffect(() => { findAllRNProceso() }, [])
 
@@ -33,7 +29,7 @@ const ReglasConsistenciaPage: FC = () => {
                }]} />
          return map
       }, {} as any)
-   ), [])
+   ), [procesoDb])
 
    return (
       <Fade in timeout={ 800 }>
@@ -46,19 +42,15 @@ const ReglasConsistenciaPage: FC = () => {
          >
             {
 
-               procesoDb.map(({ idProceso, nombre, totalRegistros, totalReglas, rutaPrincipal }) => (
+               procesoDb.map(({ idProceso, nombre, totalRegistros, totalReglas }) => (
                   <CardChart
-                     key={idProceso}
-                     title={nombre}
+                     key={ idProceso }
+                     title={ nombre }
                      descriptions={[
                         `► Total registros: ${formatNumber(totalRegistros)}`,
                         `► Total reglas: ${formatNumber(totalReglas)}`
                      ]}
                      chart={chartsPie[nombre]}
-                     navigate={async () => {
-                        await findReglasNegocioByProceso({ idProceso })
-                        navigate(rutaPrincipal)
-                     }}
                   />
                ))
             }

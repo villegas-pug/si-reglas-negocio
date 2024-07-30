@@ -49,7 +49,7 @@ export const responseCode: ResponseCode = {
    429: 'Too Many Requests',
    431: 'Request Header Fields Too Large',
    451: 'Unavailable For Legal Reasons',
-   500: 'Internal Server Error',
+   500: 'Error Interno del Servidor',
    501: 'Not Implemented',
    502: 'Bad Gateway',
    503: 'Service Unavailable',

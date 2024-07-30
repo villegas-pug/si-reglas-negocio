@@ -1,3 +1,2 @@
-export const formatNumber = (amount: number) => {
-   return new Intl.NumberFormat().format(amount)
-}
+export * from './format-number.helper'
+export * from './sleep.helper'

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { Proceso, ReglaNegocioInternal } from '../../interfaces'
 import { findReglasNegocioByProceso } from '../../services'
-import { adaptApiReglasNegocioToInternal } from '../../adapters/api-reglanegocio.adapter'
+import { adaptApiReglasNegocioToInternal } from '../../adapters'
 
 type State = {
    reglaNegocio: ReglaNegocioInternal

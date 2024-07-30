@@ -72,7 +72,7 @@ export const LayoutApp: FC<Props> = ({ children }) => {
          </Sider>
          <Layout>
             <Header style={{ padding: 0, background: colorBgContainer, height: 5 }} />
-            <Content style={{ margin: '0 16px', overflow: 'auto' }}>
+            <Content style={{ margin: '0 16px' }}>
                <Breadcrumb style={{ margin: '16px 0' }}>
                   <Breadcrumb.Item>Usuario</Breadcrumb.Item>
                   <Breadcrumb.Item>{ userAuth?.nombres }</Breadcrumb.Item>
@@ -82,7 +82,8 @@ export const LayoutApp: FC<Props> = ({ children }) => {
                      padding: 24,
                      minHeight: 360,
                      background: colorBgContainer,
-                     borderRadius: borderRadiusLG
+                     borderRadius: borderRadiusLG,
+                     overflow: 'auto'
                   }}
                >
                   { children }

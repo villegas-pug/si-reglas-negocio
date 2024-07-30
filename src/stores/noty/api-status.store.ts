@@ -13,7 +13,7 @@ type Action = {
    apiReset: () => void
 }
 
-export const useApiStatus = create<State & Action>((set) => ({
+export const useApiStatusStore = create<State & Action>((set) => ({
 
    isLoading: false,
    message: '',

@@ -13,5 +13,6 @@ export interface Proceso {
 }
 
 export interface ProcesoInternal extends Proceso {
+   idProcedimiento: number
    rutaPrincipal: string
 }

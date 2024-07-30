@@ -1,24 +1,41 @@
 import { FC, useRef, useState } from 'react'
 
-import type { TableColumnsType } from 'antd'
-import { Space, Table, Tag, Tooltip } from 'antd'
-import { ReglaNegocioInternal } from '../interfaces'
+import { Table, Tag, Tooltip } from 'antd'
 import { CheckCircleOutlined, CloseCircleOutlined, ConsoleSqlOutlined, PieChartOutlined } from '@ant-design/icons'
-import { CustomModal } from './modal'
-import { Editor } from './editor-sql'
-import { formatNumber } from '../helpers'
+import { VscDebugRerun } from 'react-icons/vsc'
+import type { TableColumnsType } from 'antd'
+
+import { CustomModal } from '../modal'
+import { Editor } from '../editor-sql'
+import { formatNumber } from '../../helpers'
+import { LineChart } from '../chart'
+
+import { EjecucionScriptDeteccion, ReglaNegocioInternal } from '../../interfaces'
+
+import { createOneRegistroEjecucionScript } from '../../services'
+import { useReglasNegocio } from '../../hooks'
 
 type Props = {
    data: ReglaNegocioInternal[]
 }
 
 export const ReglasNegocioTable: FC<Props> = ({ data }) => {
-   const sentenciaSql = useRef('SQL ...')
-   const [isOpenModa, setIsOpenModa] = useState(false)
+   const sentenciaSqlRef = useRef('SQL ...')
+   const ejecucionScriptDeteccionRef = useRef<EjecucionScriptDeteccion[]>([])
+
+   const [isOpenModal, setIsOpenModal] = useState(false)
+   const [isOpenModalLineChart, setIsOpenModalLineChart] = useState(false)
+
+   const { findReglasNegocioByProcesoOfCurrPath } = useReglasNegocio()
 
    const showSentenciaSql = (sql: string) => {
-      sentenciaSql.current = sql
-      setIsOpenModa(true)
+      sentenciaSqlRef.current = sql
+      setIsOpenModal(true)
+   }
+
+   const showProyeccionDeteccion = (ejecucionScript: EjecucionScriptDeteccion[]) => {
+      ejecucionScriptDeteccionRef.current = ejecucionScript
+      setIsOpenModalLineChart(true)
    }
 
    const columns: TableColumnsType<ReglaNegocioInternal> = [
@@ -50,23 +67,20 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          dataIndex: 'definicionRegla',
          key: 'definicionRegla',
          align: 'justify',
-         width: 500
+         width: 400
       }, {
          title: 'Validación Inconsistencia',
-         key: 'totalValidacionScript',
          align: 'right',
          render: (_, record) => formatNumber(record.totalValidacionScript),
          sorter: (a, b) => a.totalValidacionScript - b.totalValidacionScript
       }, {
          title: 'Detección Inconsisitencia',
-         key: 'totalRegIncorrectos',
          align: 'right',
          render: (_, record) => formatNumber(record.totalDeteccionScript),
          sorter: (a, b) => a.totalDeteccionScript - b.totalDeteccionScript
       }, {
          title: 'Status Regla',
          dataIndex: 'statusRegla',
-         key: 'statusRegla',
          align: 'center',
          filters: [{ text: 'APROBADO', value: 'APROBADO' }, { text: 'OBSERVADO', value: 'OBSERVADO' }],
          filterSearch: true,
@@ -80,7 +94,6 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          )
       }, {
          title: 'Script Validación',
-         key: 'scriptSQLValidacion',
          align: 'center',
          render: (_, record) => (
             <Tooltip title='Ver sentencia SQL'>
@@ -92,7 +105,6 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          )
       }, {
          title: 'Script Detección',
-         key: 'scriptSQLValidacion',
          align: 'center',
          render: (_, record) => (
             <Tooltip title='Ver sentencia SQL'>
@@ -104,27 +116,55 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          )
       }, {
          title: 'Proyección Estadística',
-         key: 'Proyección Estadística',
          align: 'center',
-         render: (_, record) => (
-            <Tooltip title='Ver estadisticas'>
-               <PieChartOutlined
-                  style={{ fontSize: 25 }}
-                  onClick={() => showSentenciaSql(record.deteccionScript)}
-               />
-            </Tooltip>
-         )
+         render: (_, record) => record.ejecucionScriptDeteccion.length > 0
+            ? (
+               <Tooltip title='Ver proyección estadística'>
+                  <PieChartOutlined
+                     style={{ fontSize: 25 }}
+                     onClick={() => showProyeccionDeteccion(record.ejecucionScriptDeteccion)}
+                  />
+               </Tooltip>
+            )
+            : <></>
+      }, {
+         title: 'Ejecutar Detección',
+         align: 'center',
+         render: (_, record) => record.ejecucionScriptDeteccion.length > 0
+            ? (
+               <Tooltip title='Ejecutar Script Detección'>
+                  <VscDebugRerun
+                     style={{ fontSize: 25, cursor: 'pointer' }}
+                     onClick={async () => {
+                        await createOneRegistroEjecucionScript(record.idCtrlCambioDeteccion)
+                        findReglasNegocioByProcesoOfCurrPath()
+                     }}
+                  />
+               </Tooltip>
+            )
+            : <></>
       }
    ]
 
    return (
       <>
-         <Space>
-            <Table columns={columns} dataSource={data} pagination={{ defaultPageSize: 8 }} scroll={{ y: 'calc(100vh - 470px)' }} />
-         </Space>
+         <div style={{ marginTop: 5, width: '100vw' }}>
+            <Table
+               columns={columns}
+               dataSource={data}
+               pagination={{ defaultPageSize: 8 }}
+               size='small'
+               scroll={{ y: 'calc(100vh - 470px)' }}
+            />
+         </div>
 
-         <CustomModal isModalOpen={ isOpenModa } setIsModalOpen={ () => setIsOpenModa(false) } >
-            <Editor sentenciaSql={ sentenciaSql.current } />
+         {/* Modal's: */}
+         <CustomModal title='Sentencia SQL' isOpen={ isOpenModal } setIsOpen={ () => setIsOpenModal(false) } >
+            <Editor sentenciaSql={ sentenciaSqlRef.current } />
+         </CustomModal>
+
+         <CustomModal title='Proyección lineal' isOpen={ isOpenModalLineChart } setIsOpen={ setIsOpenModalLineChart } >
+            <LineChart label={'Proyección'} data={ ejecucionScriptDeteccionRef.current } width={ '70vw' } height={ 350 } />
          </CustomModal>
       </>
    )

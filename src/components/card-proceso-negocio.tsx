@@ -9,7 +9,7 @@ type Props = {
    title: string
    descriptions: string[]
    chart: ReactElement
-   navigate: () => Promise<void>
+   navigate?: () => void
 }
 
 export const CardChart: FC<Props> = ({ title, descriptions, chart, navigate }) => {
@@ -17,11 +17,11 @@ export const CardChart: FC<Props> = ({ title, descriptions, chart, navigate }) =
       <Card
          style={{ width: 400 }}
          cover={chart}
-         actions={[
+         actions={ navigate && [
             <SendOutlined
                key={ title }
                style={{ fontSize: 30 }}
-               onClick={() => { navigate() }}
+               onClick={() => { navigate && navigate() }}
             />
          ]}
       >

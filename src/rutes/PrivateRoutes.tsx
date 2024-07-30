@@ -2,7 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 import { useAuthStore } from '../stores/auth/auth-store'
 import { PUBLIC } from '../consts'
-import { LayoutApp, LogoutButton } from '../components'
+import { LayoutApp, LogoutButton, ModalLoading } from '../components'
 import { Suspense } from 'react'
 
 export const PrivateRoutes = () => {
@@ -13,8 +13,9 @@ export const PrivateRoutes = () => {
    return (
       <>
          <LayoutApp>
-            <Suspense fallback={ <h1>Loading...</h1> }>
+            <Suspense fallback={ <ModalLoading /> }>
                <Outlet />
+               <ModalLoading />
             </Suspense>
             <LogoutButton />
          </LayoutApp>

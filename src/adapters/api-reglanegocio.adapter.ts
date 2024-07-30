@@ -1,36 +1,47 @@
+import { EjecucionScriptDeteccion } from './../interfaces/regla-negocio.interface'
 import { ReglaNegocio, ReglaNegocioInternal } from '../interfaces'
 import { tipoScript } from '../consts'
 
 const { DETECCION, VALIDACION } = tipoScript
 
 export const adaptApiReglasNegocioToInternal = (reglasNegocio: ReglaNegocio[]): ReglaNegocioInternal[] => {
-   let reglasNegocioInternal: ReglaNegocioInternal[] = []
+   let reglasNegocioInternal: Omit<ReglaNegocioInternal, 'controlCambios'>[] = []
 
    reglasNegocioInternal = reglasNegocio.map(regla => {
-      const deteccion = regla.controlCambios.find(({ tipoScript, activo }) =>
+      const { controlCambios, ...rest } = regla
+
+      // Script `DETECCION`
+      const deteccion = controlCambios.find(({ tipoScript, activo }) =>
          tipoScript.descripcion === DETECCION && activo
       )
 
-      const validacion = regla.controlCambios.find(({ tipoScript, activo }) =>
+      // Script `VALIDACION`
+      const validacion = controlCambios.find(({ tipoScript, activo }) =>
          tipoScript.descripcion === VALIDACION && activo
       )
 
+      // Resultado script `DETECCION`
       const deteccionScript = deteccion?.registrosEjecucionScript
          .sort((a, b) => a.idRegistroEjecucion < b.idRegistroEjecucion ? 1 : 0)
          .slice(0, 1)[0]
 
+      // Resultado script `VALIDACION`
       const validacionScript = validacion?.registrosEjecucionScript
          .sort((a, b) => a.idRegistroEjecucion < b.idRegistroEjecucion ? 1 : 0)
          .slice(0, 1)[0]
 
+      // Historial ejecución script ...
+      const ejecucionScriptDeteccion: EjecucionScriptDeteccion[] = deteccion?.registrosEjecucionScript || []
+
       return {
-         ...regla,
+         ...rest,
+         idCtrlCambioDeteccion: deteccion?.idRNControlCambio || 0,
+         idCtrlCambioValidacion: validacion?.idRNControlCambio || 0,
          deteccionScript: deteccion?.script || '',
          validacionScript: validacion?.script || '',
-
          totalDeteccionScript: deteccionScript?.resultado || 0,
-         totalValidacionScript: validacionScript?.resultado || 0
-
+         totalValidacionScript: validacionScript?.resultado || 0,
+         ejecucionScriptDeteccion
       }
    })
 

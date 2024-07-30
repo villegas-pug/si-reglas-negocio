@@ -51,9 +51,11 @@ export interface StatusRegla {
    activo: boolean
 }
 
-export interface ReglaNegocioInternal extends ReglaNegocio {
+export interface ReglaNegocioInternal extends Omit<ReglaNegocio, 'controlCambios'> {
 
    // ControlCambio
+   idCtrlCambioDeteccion: number
+   idCtrlCambioValidacion: number
    definicionRegla: string
    deteccionScript: string
    validacionScript: string
@@ -61,5 +63,11 @@ export interface ReglaNegocioInternal extends ReglaNegocio {
    // RegistrosEjecucionScript
    totalDeteccionScript: number
    totalValidacionScript: number
+
+   ejecucionScriptDeteccion: EjecucionScriptDeteccion[]
+
+}
+
+export interface EjecucionScriptDeteccion extends RegistrosEjecucionScript {
 
 }
