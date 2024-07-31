@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react'
+import { FC, useMemo, useRef, useState } from 'react'
 
 import { Table, Tag, Tooltip } from 'antd'
 import { CheckCircleOutlined, CloseCircleOutlined, ConsoleSqlOutlined, PieChartOutlined } from '@ant-design/icons'
@@ -38,113 +38,115 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
       setIsOpenModalLineChart(true)
    }
 
-   const columns: TableColumnsType<ReglaNegocioInternal> = [
-      {
-         title: 'Id Regla',
-         dataIndex: 'idRN',
-         key: 'idRN',
-         sorter: (a, b) => a.idRN.localeCompare(b.idRN),
-         ellipsis: true,
-         align: 'center'
-      }, {
-         title: 'Tablas',
-         dataIndex: 'tablas',
-         key: 'tablas',
-         align: 'center'
-      }, {
-         title: 'Campos',
-         dataIndex: 'campos',
-         key: 'Campos',
-         align: 'justify',
-         width: 250
-      }, {
-         title: 'Dimensión de Regla',
-         key: 'dimensionRegla',
-         align: 'center',
-         render: (_, record) => record.dimensionRegla.nombre
-      }, {
-         title: 'Definición de Regla',
-         dataIndex: 'definicionRegla',
-         key: 'definicionRegla',
-         align: 'justify',
-         width: 400
-      }, {
-         title: 'Validación Inconsistencia',
-         align: 'right',
-         render: (_, record) => formatNumber(record.totalValidacionScript),
-         sorter: (a, b) => a.totalValidacionScript - b.totalValidacionScript
-      }, {
-         title: 'Detección Inconsisitencia',
-         align: 'right',
-         render: (_, record) => formatNumber(record.totalDeteccionScript),
-         sorter: (a, b) => a.totalDeteccionScript - b.totalDeteccionScript
-      }, {
-         title: 'Status Regla',
-         dataIndex: 'statusRegla',
-         align: 'center',
-         filters: [{ text: 'APROBADO', value: 'APROBADO' }, { text: 'OBSERVADO', value: 'OBSERVADO' }],
-         filterSearch: true,
-         onFilter: (value, record) => record.statusRegla.nombre.includes(value as string),
-         sorter: (a, b) => a.statusRegla.nombre.localeCompare(b.statusRegla.nombre),
-         render: (_, { statusRegla }) => (
+   const columns: TableColumnsType<ReglaNegocioInternal> = useMemo(() => (
+      [
+         {
+            title: 'Id Regla',
+            dataIndex: 'idRN',
+            key: 'idRN',
+            sorter: (a, b) => a.idRN.localeCompare(b.idRN),
+            ellipsis: true,
+            align: 'center'
+         }, {
+            title: 'Tablas',
+            dataIndex: 'tablas',
+            key: 'tablas',
+            align: 'center'
+         }, {
+            title: 'Campos',
+            dataIndex: 'campos',
+            key: 'Campos',
+            align: 'justify',
+            width: 250
+         }, {
+            title: 'Dimensión de Regla',
+            key: 'dimensionRegla',
+            align: 'center',
+            render: (_, record) => record.dimensionRegla.nombre
+         }, {
+            title: 'Definición de Regla',
+            dataIndex: 'definicionRegla',
+            key: 'definicionRegla',
+            align: 'justify',
+            width: 400
+         }, {
+            title: 'Validación Inconsistencia',
+            align: 'right',
+            render: (_, record) => formatNumber(record.totalValidacionScript),
+            sorter: (a, b) => a.totalValidacionScript - b.totalValidacionScript
+         }, {
+            title: 'Detección Inconsisitencia',
+            align: 'right',
+            render: (_, record) => formatNumber(record.totalDeteccionScript),
+            sorter: (a, b) => a.totalDeteccionScript - b.totalDeteccionScript
+         }, {
+            title: 'Status Regla',
+            dataIndex: 'statusRegla',
+            align: 'center',
+            filters: [{ text: 'APROBADO', value: 'APROBADO' }, { text: 'OBSERVADO', value: 'OBSERVADO' }],
+            filterSearch: true,
+            onFilter: (value, record) => record.statusRegla.nombre.includes(value as string),
+            sorter: (a, b) => a.statusRegla.nombre.localeCompare(b.statusRegla.nombre),
+            render: (_, { statusRegla }) => (
 
-            statusRegla.nombre === 'APROBADO'
-               ? (<Tag icon={<CheckCircleOutlined />} color="success">{ statusRegla.nombre }</Tag>)
-               : (<Tag icon={<CloseCircleOutlined />} color="error">{ statusRegla.nombre }</Tag>)
-         )
-      }, {
-         title: 'Script Validación',
-         align: 'center',
-         render: (_, record) => (
-            <Tooltip title='Ver sentencia SQL'>
-               <ConsoleSqlOutlined
-                  style={{ fontSize: 25 }}
-                  onClick={() => showSentenciaSql(record.validacionScript)}
-               />
-            </Tooltip>
-         )
-      }, {
-         title: 'Script Detección',
-         align: 'center',
-         render: (_, record) => (
-            <Tooltip title='Ver sentencia SQL'>
-               <ConsoleSqlOutlined
-                  style={{ fontSize: 25 }}
-                  onClick={() => showSentenciaSql(record.deteccionScript)}
-               />
-            </Tooltip>
-         )
-      }, {
-         title: 'Proyección Estadística',
-         align: 'center',
-         render: (_, record) => record.ejecucionScriptDeteccion.length > 0
-            ? (
-               <Tooltip title='Ver proyección estadística'>
-                  <PieChartOutlined
+               statusRegla.nombre === 'APROBADO'
+                  ? (<Tag icon={<CheckCircleOutlined />} color="success">{ statusRegla.nombre }</Tag>)
+                  : (<Tag icon={<CloseCircleOutlined />} color="error">{ statusRegla.nombre }</Tag>)
+            )
+         }, {
+            title: 'Script Validación',
+            align: 'center',
+            render: (_, record) => (
+               <Tooltip title='Ver sentencia SQL'>
+                  <ConsoleSqlOutlined
                      style={{ fontSize: 25 }}
-                     onClick={() => showProyeccionDeteccion(record.ejecucionScriptDeteccion)}
+                     onClick={() => showSentenciaSql(record.validacionScript)}
                   />
                </Tooltip>
             )
-            : <></>
-      }, {
-         title: 'Ejecutar Detección',
-         align: 'center',
-         render: (_, record) => record.ejecucionScriptDeteccion.length > 0
-            ? (
-               <Tooltip title='Ejecutar Script Detección'>
-                  <VscDebugRerun
-                     style={{ fontSize: 25, cursor: 'pointer' }}
-                     onClick={async () => {
-                        await createOneRegistroEjecucionScript(record.idCtrlCambioDeteccion)
-                        findReglasNegocioByProcesoOfCurrPath()
-                     }}
+         }, {
+            title: 'Script Detección',
+            align: 'center',
+            render: (_, record) => (
+               <Tooltip title='Ver sentencia SQL'>
+                  <ConsoleSqlOutlined
+                     style={{ fontSize: 25 }}
+                     onClick={() => showSentenciaSql(record.deteccionScript)}
                   />
                </Tooltip>
             )
-            : <></>
-      }
-   ]
+         }, {
+            title: 'Proyección Estadística',
+            align: 'center',
+            render: (_, record) => record.ejecucionScriptDeteccion.length > 0
+               ? (
+                  <Tooltip title='Ver proyección estadística'>
+                     <PieChartOutlined
+                        style={{ fontSize: 25 }}
+                        onClick={() => showProyeccionDeteccion(record.ejecucionScriptDeteccion)}
+                     />
+                  </Tooltip>
+               )
+               : <></>
+         }, {
+            title: 'Ejecutar Detección',
+            align: 'center',
+            render: (_, record) => record.ejecucionScriptDeteccion.length > 0
+               ? (
+                  <Tooltip title='Ejecutar Script Detección'>
+                     <VscDebugRerun
+                        style={{ fontSize: 25, cursor: 'pointer' }}
+                        onClick={async () => {
+                           await createOneRegistroEjecucionScript(record.idCtrlCambioDeteccion)
+                           findReglasNegocioByProcesoOfCurrPath()
+                        }}
+                     />
+                  </Tooltip>
+               )
+               : <></>
+         }
+      ]
+   ), [])
 
    return (
       <>

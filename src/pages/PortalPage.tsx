@@ -52,7 +52,7 @@ export const Login = () => {
                         fontWeight: 400
                      }}
                   >
-                  Reglas de Negocio y Calidad de Datos
+                  Reglas de Consistencia de Datos
                   </Title>
                   <Title
                      level={3}

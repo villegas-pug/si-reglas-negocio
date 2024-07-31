@@ -22,16 +22,17 @@ export const adaptApiReglasNegocioToInternal = (reglasNegocio: ReglaNegocio[]): 
 
       // Resultado script `DETECCION`
       const deteccionScript = deteccion?.registrosEjecucionScript
-         .sort((a, b) => a.idRegistroEjecucion < b.idRegistroEjecucion ? 1 : 0)
+         .sort((a, b) => a.idRegistroEjecucion < b.idRegistroEjecucion ? 1 : -1)
          .slice(0, 1)[0]
 
       // Resultado script `VALIDACION`
       const validacionScript = validacion?.registrosEjecucionScript
-         .sort((a, b) => a.idRegistroEjecucion < b.idRegistroEjecucion ? 1 : 0)
+         .sort((a, b) => a.idRegistroEjecucion < b.idRegistroEjecucion ? 1 : -1)
          .slice(0, 1)[0]
 
       // Historial ejecución script ...
-      const ejecucionScriptDeteccion: EjecucionScriptDeteccion[] = deteccion?.registrosEjecucionScript || []
+      const ejecucionScriptDeteccion: EjecucionScriptDeteccion[] = deteccion?.registrosEjecucionScript
+         .sort((a, b) => a.idRegistroEjecucion - b.idRegistroEjecucion) || []
 
       return {
          ...rest,

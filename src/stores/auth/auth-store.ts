@@ -2,7 +2,7 @@ import { HeaderResponse } from './../../interfaces'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { localStorage } from '../../consts/localstorage-keys.const'
+import { localStorage } from '../../consts'
 import { Usuario } from '../../interfaces'
 import { api } from '../../config'
 import { findUsuarioByLogin } from '../../services'
@@ -24,7 +24,7 @@ type Action = {
 
 export const useAuthStore = create(
    persist<State & Action>((set) => ({
-      isAuth: false,
+      isAuth: true,
       token: '',
       loginAuth: '',
       userAuth: {} as Usuario,

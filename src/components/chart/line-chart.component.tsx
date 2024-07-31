@@ -20,7 +20,8 @@ export const LineChart: FC<LineChartProps> = ({ label, data: dataSeries, width =
    if (dataSeries.length === 0) return <></>
 
    const primaryAxis = useMemo((): AxisOptions<EjecucionScriptDeteccion> => ({
-      getValue: record => record.fechaEjecucion, elementType: 'line'
+      getValue: record => record.fechaEjecucion,
+      elementType: 'line'
    }), [])
    const secondaryAxes = useMemo((): AxisOptions<EjecucionScriptDeteccion>[] => [{ getValue: record => record.resultado, elementType: 'line' }], [])
 
