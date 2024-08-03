@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useProcesoStore, useReglaNegocioStore } from '../stores'
@@ -9,16 +9,16 @@ export const useReglasNegocio = () => {
    const { procesoDb } = useProcesoStore()
    const { reglaNegocioInternalDb, findReglasNegocioByProceso } = useReglaNegocioStore()
 
+   const procesoOfCurrPath = useMemo(() => {
+      const ofCurrPath = params['*']?.split('/')[1]
+      if (!ofCurrPath) return
+      return procesoDb.find(({ rutaPrincipal }) => rutaPrincipal.includes(ofCurrPath))
+   }, [procesoDb])
+
    // Handler's
    const findReglasNegocioByProcesoOfCurrPath = useCallback(() => {
-      const procesoOfCurrPath = params['*']?.split('/')[1]
-
-      if (!procesoOfCurrPath) return
-
-      const proceso = procesoDb.find(({ rutaPrincipal }) => rutaPrincipal.includes(procesoOfCurrPath))
-
-      findReglasNegocioByProceso({ idProceso: proceso?.idProceso })
-   }, [procesoDb])
+      findReglasNegocioByProceso({ idProceso: procesoOfCurrPath?.idProceso })
+   }, [procesoOfCurrPath])
 
    // Dep's
    const totalReglasOfCurrPath = reglaNegocioInternalDb?.length || 0
@@ -26,6 +26,7 @@ export const useReglasNegocio = () => {
    const granTotalDeteccionOfCurrPath = reglaNegocioInternalDb.reduce((total, { totalDeteccionScript }) => total + totalDeteccionScript, 0)
 
    return {
+      procesoOfCurrPath,
       totalReglasOfCurrPath,
       granTotalValidacionOfCurrPath,
       granTotalDeteccionOfCurrPath,

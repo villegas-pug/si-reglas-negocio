@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { localStorage } from '../../consts'
-import { Usuario } from '../../interfaces'
+import { Usuario } from '../../models'
 import { api } from '../../config'
 import { findUsuarioByLogin } from '../../services'
 

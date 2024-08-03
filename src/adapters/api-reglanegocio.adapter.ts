@@ -1,5 +1,5 @@
-import { EjecucionScriptDeteccion } from './../interfaces/regla-negocio.interface'
-import { ReglaNegocio, ReglaNegocioInternal } from '../interfaces'
+import { EjecucionScriptDeteccion, ReglaNegocio, ReglaNegocioInternal } from './../models'
+
 import { tipoScript } from '../consts'
 
 const { DETECCION, VALIDACION } = tipoScript
@@ -42,7 +42,8 @@ export const adaptApiReglasNegocioToInternal = (reglasNegocio: ReglaNegocio[]): 
          validacionScript: validacion?.script || '',
          totalDeteccionScript: deteccionScript?.resultado || 0,
          totalValidacionScript: validacionScript?.resultado || 0,
-         ejecucionScriptDeteccion
+         ejecucionScriptDeteccion,
+         resultSet: deteccion?.resultSet || ''
       }
    })
 

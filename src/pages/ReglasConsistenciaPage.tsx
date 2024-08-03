@@ -8,12 +8,14 @@ import { PieProcesoNegocio } from '../components'
 
 import { Fade } from '@mui/material'
 import { formatNumber } from '../helpers'
-import { useProcesoStore } from '../stores'
+import { useDimensionStore, useProcesoStore } from '../stores'
 
 const ReglasConsistenciaPage: FC = () => {
    const { procesoDb, findAllRNProceso } = useProcesoStore()
+   const { findAllRNDimension } = useDimensionStore()
 
    useEffect(() => { findAllRNProceso() }, [])
+   useEffect(() => { findAllRNDimension() }, [])
 
    const chartsPie = useMemo(() => (
       procesoDb.reduce((map, { nombre, totalRegCorrectos, totalRegIncorrectos }) => {

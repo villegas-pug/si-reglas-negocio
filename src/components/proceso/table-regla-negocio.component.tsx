@@ -1,32 +1,37 @@
 import { FC, useMemo, useRef, useState } from 'react'
 
-import { Table, Tag, Tooltip } from 'antd'
-import { CheckCircleOutlined, CloseCircleOutlined, ConsoleSqlOutlined, PieChartOutlined } from '@ant-design/icons'
+import { Button, Flex, Table, Tag, Tooltip } from 'antd'
+import { CheckCircleOutlined, CloseCircleOutlined, ConsoleSqlOutlined, DeleteOutlined, EditOutlined, PieChartOutlined, TableOutlined } from '@ant-design/icons'
 import { VscDebugRerun } from 'react-icons/vsc'
 import type { TableColumnsType } from 'antd'
+import ReactJson from 'react-json-view'
 
 import { CustomModal } from '../modal'
 import { Editor } from '../editor-sql'
 import { formatNumber } from '../../helpers'
 import { LineChart } from '../chart'
 
-import { EjecucionScriptDeteccion, ReglaNegocioInternal } from '../../interfaces'
+import { EjecucionScriptDeteccion, ReglaNegocioInternal } from '../../models'
 
 import { createOneRegistroEjecucionScript } from '../../services'
 import { useReglasNegocio } from '../../hooks'
+import { useReglaNegocioContext } from '../../context'
 
 type Props = {
    data: ReglaNegocioInternal[]
 }
 
 export const ReglasNegocioTable: FC<Props> = ({ data }) => {
-   const sentenciaSqlRef = useRef('SQL ...')
-   const ejecucionScriptDeteccionRef = useRef<EjecucionScriptDeteccion[]>([])
+   const { setInitialValues, setIsOpenModal: setIsOpenModalCrear } = useReglaNegocioContext()
 
+   const sentenciaSqlRef = useRef('SQL ...')
+   const resultadoDeteccionRef = useRef('')
+   const ejecucionScriptDeteccionRef = useRef<EjecucionScriptDeteccion[]>([])
    const [isOpenModal, setIsOpenModal] = useState(false)
    const [isOpenModalLineChart, setIsOpenModalLineChart] = useState(false)
+   const [isOpenModalResultSet, setIsOpenModalResultSet] = useState(false)
 
-   const { findReglasNegocioByProcesoOfCurrPath } = useReglasNegocio()
+   const { procesoOfCurrPath, findReglasNegocioByProcesoOfCurrPath } = useReglasNegocio()
 
    const showSentenciaSql = (sql: string) => {
       sentenciaSqlRef.current = sql
@@ -40,6 +45,32 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
 
    const columns: TableColumnsType<ReglaNegocioInternal> = useMemo(() => (
       [
+         {
+            title: '>>',
+            align: 'center',
+            render: (_, record) => (
+               <Flex gap={7} justify='center'>
+                  <Tooltip title='Editar regla'>
+                     <Button
+                        shape='circle'
+                        size='middle'
+                        icon={<EditOutlined />}
+                        onClick={() => {
+                           setInitialValues(record)
+                           setIsOpenModalCrear(true)
+                        }}
+                     />
+                  </Tooltip>
+                  <Tooltip title='Eliminar regla'>
+                     <Button
+                        shape='circle'
+                        size='middle'
+                        icon={<DeleteOutlined />}
+                     />
+                  </Tooltip>
+               </Flex>
+            )
+         },
          {
             title: 'Id Regla',
             dataIndex: 'idRN',
@@ -131,14 +162,30 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          }, {
             title: 'Ejecutar Detección',
             align: 'center',
-            render: (_, record) => record.ejecucionScriptDeteccion.length > 0
+            render: (_, record) => record.deteccionScript.trim().length > 0
                ? (
                   <Tooltip title='Ejecutar Script Detección'>
                      <VscDebugRerun
                         style={{ fontSize: 25, cursor: 'pointer' }}
                         onClick={async () => {
-                           await createOneRegistroEjecucionScript(record.idCtrlCambioDeteccion)
+                           await createOneRegistroEjecucionScript(procesoOfCurrPath?.idProceso!, record.idCtrlCambioDeteccion)
                            findReglasNegocioByProcesoOfCurrPath()
+                        }}
+                     />
+                  </Tooltip>
+               )
+               : <></>
+         }, {
+            title: 'Mostrar Detección',
+            align: 'center',
+            render: (_, record) => record.resultSet.trim().length > 0
+               ? (
+                  <Tooltip title='Mostrar detalle detección'>
+                     <TableOutlined
+                        style={{ fontSize: 25, cursor: 'pointer' }}
+                        onClick={() => {
+                           resultadoDeteccionRef.current = record.resultSet
+                           setIsOpenModalResultSet(true)
                         }}
                      />
                   </Tooltip>
@@ -150,7 +197,7 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
 
    return (
       <>
-         <div style={{ marginTop: 5, width: '100vw' }}>
+         <div style={{ marginTop: 5, minWidth: 2200 }}>
             <Table
                columns={columns}
                dataSource={data}
@@ -167,6 +214,10 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
 
          <CustomModal title='Proyección lineal' isOpen={ isOpenModalLineChart } setIsOpen={ setIsOpenModalLineChart } >
             <LineChart label={'Proyección'} data={ ejecucionScriptDeteccionRef.current } width={ '70vw' } height={ 350 } />
+         </CustomModal>
+
+         <CustomModal title='Resutado script detección' isOpen={isOpenModalResultSet} setIsOpen={setIsOpenModalResultSet} >
+            <ReactJson src={ JSON.parse(resultadoDeteccionRef.current || '{}') } />
          </CustomModal>
       </>
    )

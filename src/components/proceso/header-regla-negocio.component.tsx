@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import { Flex, Card, Row, Col, Button } from 'antd'
 import Meta from 'antd/es/card/Meta'
@@ -9,13 +9,13 @@ import { BsFileRuledFill, BsDatabaseFillCheck, BsDatabaseFillExclamation } from 
 import { formatNumber } from '../../helpers'
 import { useReglasNegocio } from '../../hooks'
 import { FormAsideFloat } from '../forms'
+import { useReglaNegocioContext } from '../../context'
 
 const sizeIcon = 35
 
 export const HeaderReglaNegocio: FC = () => {
-   const [isOpenForm, setIsOpenForm] = useState(true)
-
    const { totalReglasOfCurrPath, granTotalDeteccionOfCurrPath, granTotalValidacionOfCurrPath } = useReglasNegocio()
+   const { setIsOpenModal, resetInitialValues } = useReglaNegocioContext()
 
    return (
       <>
@@ -27,9 +27,12 @@ export const HeaderReglaNegocio: FC = () => {
                         type='primary'
                         size='large'
                         icon={<BsFileRuledFill color='#fff' />}
-                        onClick={ () => { setIsOpenForm(true) } }
+                        onClick={() => {
+                           resetInitialValues()
+                           setIsOpenModal(true)
+                        }}
                      >
-                     Nueva regla
+                        Nueva regla
                      </Button>
                   </Row>
                </Col>
@@ -64,7 +67,7 @@ export const HeaderReglaNegocio: FC = () => {
          </Fade>
 
          {/* Flaot Form */}
-         <FormAsideFloat isOpen={ isOpenForm } setIsOpen={ setIsOpenForm } />
+         <FormAsideFloat />
       </>
    )
 }

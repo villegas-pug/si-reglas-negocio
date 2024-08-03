@@ -6,7 +6,7 @@ type Props = {
    title: string
    isOpen: boolean
    setIsOpen: (open: boolean) => void
-   children: ReactElement
+   children: ReactElement | string
 }
 
 export const CustomModal: FC<Props> = ({ title, isOpen, setIsOpen, children }) => {

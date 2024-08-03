@@ -1,5 +1,5 @@
-import { Proceso } from './proceso.interface'
-import { Usuario } from './usuario.interface'
+import { Proceso } from './proceso.model'
+import { Usuario } from './usuario.model'
 
 export interface ReglaNegocio {
    idRN: string
@@ -8,7 +8,7 @@ export interface ReglaNegocio {
    campos: string
    controlCambios: ControlCambio[]
    proceso: Proceso
-   dimensionRegla: DimensionRegla
+   dimensionRegla: Dimension
    statusRegla: StatusRegla
    fechaCreacion: Date
    activo: boolean
@@ -21,6 +21,7 @@ export interface ControlCambio {
    fechaCreacion: Date
    fechaModificacion: Date
    script: string
+   resultSet: string
    activo: boolean
    observaciones: string
    tipoScript: TipoScript
@@ -39,7 +40,7 @@ export interface RegistrosEjecucionScript {
    activo: boolean
 }
 
-export interface DimensionRegla {
+export interface Dimension {
    idDimension: number
    nombre: string
    activo: boolean
@@ -65,6 +66,7 @@ export interface ReglaNegocioInternal extends Omit<ReglaNegocio, 'controlCambios
    totalValidacionScript: number
 
    ejecucionScriptDeteccion: EjecucionScriptDeteccion[]
+   resultSet: string
 
 }
 

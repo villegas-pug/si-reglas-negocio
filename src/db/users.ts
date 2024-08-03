@@ -1,4 +1,4 @@
-import { CONTROL_MIGRATORIO, JEFATURA_PIURA } from '../config/paths'
+/* import { CONTROL_MIGRATORIO, JEFATURA_PIURA } from '../config/paths'
 import { User } from '../interfaces'
 
 export const users: User[] = [
@@ -19,4 +19,4 @@ export const users: User[] = [
          path: JEFATURA_PIURA
       }]
    }
-]
+] */

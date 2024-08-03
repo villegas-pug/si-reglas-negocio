@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Proceso, ReglaNegocioInternal } from '../../interfaces'
+import { Proceso, ReglaNegocioInternal } from '../../models'
 import { findReglasNegocioByProceso } from '../../services'
 import { adaptApiReglasNegocioToInternal } from '../../adapters'
 

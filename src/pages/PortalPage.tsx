@@ -10,7 +10,7 @@ import {
 import { UserOutlined } from '@ant-design/icons'
 
 import { useAuthStore } from '../stores/auth'
-import { Usuario } from '../interfaces'
+import { Usuario } from '../models'
 import { Fade } from '@mui/material'
 import { useApiStatusStore } from '../stores'
 

@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 import { findAllProceso } from '../../services'
 import { adaptApiProcesoToInternal } from '../../adapters'
 import { useAuthStore } from '../auth'
-import { ProcesoInternal } from '../../interfaces'
+import { ProcesoInternal } from '../../models'
 
 import { localStorage } from '../../consts'
 

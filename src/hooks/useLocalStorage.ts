@@ -1,6 +1,5 @@
+import { LocalStorageKey } from './../interfaces'
 import { useState } from 'react'
-
-import { LocalStorageKey } from '../type'
 
 export const useLocalStorage = (key: LocalStorageKey) => {
    const [value, setValue] = useState(() => {
