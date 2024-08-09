@@ -16,6 +16,7 @@ import { EjecucionScriptDeteccion, ReglaNegocioInternal } from '../../models'
 import { createOneRegistroEjecucionScript } from '../../services'
 import { useReglasNegocio } from '../../hooks'
 import { useReglaNegocioContext } from '../../context'
+import { Zoom } from 'react-awesome-reveal'
 
 type Props = {
    data: ReglaNegocioInternal[]
@@ -160,22 +161,6 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
                )
                : <></>
          }, {
-            title: 'Ejecutar Detección',
-            align: 'center',
-            render: (_, record) => record.deteccionScript.trim().length > 0
-               ? (
-                  <Tooltip title='Ejecutar Script Detección'>
-                     <VscDebugRerun
-                        style={{ fontSize: 25, cursor: 'pointer' }}
-                        onClick={async () => {
-                           await createOneRegistroEjecucionScript(procesoOfCurrPath?.idProceso!, record.idCtrlCambioDeteccion)
-                           findReglasNegocioByProcesoOfCurrPath()
-                        }}
-                     />
-                  </Tooltip>
-               )
-               : <></>
-         }, {
             title: 'Mostrar Detección',
             align: 'center',
             render: (_, record) => record.resultSet.trim().length > 0
@@ -191,21 +176,39 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
                   </Tooltip>
                )
                : <></>
+         }, {
+            title: 'Ejecutar Detección',
+            align: 'center',
+            render: (_, record) => record.deteccionScript.trim().length > 0
+               ? (
+                  <Tooltip title='Ejecutar Script Detección'>
+                     <VscDebugRerun
+                        style={{ fontSize: 25, cursor: 'pointer' }}
+                        onClick={ async () => {
+                           await createOneRegistroEjecucionScript(procesoOfCurrPath?.idProceso!, record.idCtrlCambioDeteccion)
+                           findReglasNegocioByProcesoOfCurrPath()
+                        }}
+                     />
+                  </Tooltip>
+               )
+               : <></>
          }
       ]
    ), [])
 
    return (
       <>
-         <div style={{ marginTop: 5, minWidth: 2200 }}>
-            <Table
-               columns={columns}
-               dataSource={data}
-               pagination={{ defaultPageSize: 8 }}
-               size='small'
-               scroll={{ y: 'calc(100vh - 470px)' }}
-            />
-         </div>
+         <Zoom>
+            <div style={{ marginTop: 5, minWidth: 2200 }}>
+               <Table
+                  columns={columns}
+                  dataSource={data}
+                  pagination={{ defaultPageSize: 8 }}
+                  size='small'
+                  scroll={{ y: 'calc(100vh - 470px)' }}
+               />
+            </div>
+         </Zoom>
 
          {/* Modal's: */}
          <CustomModal title='Sentencia SQL' isOpen={ isOpenModal } setIsOpen={ () => setIsOpenModal(false) } >

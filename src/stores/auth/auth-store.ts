@@ -24,7 +24,7 @@ type Action = {
 
 export const useAuthStore = create(
    persist<State & Action>((set) => ({
-      isAuth: true,
+      isAuth: false,
       token: '',
       loginAuth: '',
       userAuth: {} as Usuario,

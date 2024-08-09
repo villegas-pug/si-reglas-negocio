@@ -11,7 +11,7 @@ import { UserOutlined } from '@ant-design/icons'
 
 import { useAuthStore } from '../stores/auth'
 import { Usuario } from '../models'
-import { Fade } from '@mui/material'
+import { Fade } from 'react-awesome-reveal'
 import { useApiStatusStore } from '../stores'
 
 import bgPortal from '../assets/bg-portal-v1.jpg'
@@ -27,7 +27,7 @@ export const Login = () => {
    }
 
    return (
-      <Fade in timeout={ 1000 }>
+      <Fade delay={ 500 } duration={ 1500 }>
          <Row style={{ height: '100vh' }}>
             <Col
                span={ 18 }

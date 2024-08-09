@@ -1,12 +1,12 @@
 import { FC, useEffect, useMemo } from 'react'
 
 import { Flex } from 'antd'
+import { Slide } from 'react-awesome-reveal'
 
 import { CardChart } from '../components/card-proceso-negocio'
 
 import { PieProcesoNegocio } from '../components'
 
-import { Fade } from '@mui/material'
 import { formatNumber } from '../helpers'
 import { useDimensionStore, useProcesoStore } from '../stores'
 
@@ -34,7 +34,7 @@ const ReglasConsistenciaPage: FC = () => {
    ), [procesoDb])
 
    return (
-      <Fade in timeout={ 800 }>
+      <Slide triggerOnce>
          <Flex
             justify='center'
             align='center'
@@ -57,7 +57,7 @@ const ReglasConsistenciaPage: FC = () => {
                ))
             }
          </Flex>
-      </Fade>
+      </Slide>
    )
 }
 

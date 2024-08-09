@@ -2,7 +2,7 @@ import { FC } from 'react'
 
 import { Flex, Card, Row, Col, Button } from 'antd'
 import Meta from 'antd/es/card/Meta'
-import { Fade } from '@mui/material'
+import { Zoom } from 'react-awesome-reveal'
 
 import { BsFileRuledFill, BsDatabaseFillCheck, BsDatabaseFillExclamation } from 'react-icons/bs'
 
@@ -19,7 +19,7 @@ export const HeaderReglaNegocio: FC = () => {
 
    return (
       <>
-         <Fade in timeout={2000}>
+         <Zoom duration={ 1500 }>
             <Row>
                <Col span={8}>
                   <Row justify='start' align='bottom' style={{ height: '100%' }}>
@@ -64,7 +64,7 @@ export const HeaderReglaNegocio: FC = () => {
 
             </Row>
 
-         </Fade>
+         </Zoom>
 
          {/* Flaot Form */}
          <FormAsideFloat />

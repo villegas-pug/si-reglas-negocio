@@ -1,5 +1,6 @@
 import { api } from '../../config'
-import { Response, Usuario } from '../../interfaces'
+import { Response } from '../../interfaces'
+import { Usuario } from '../../models'
 
 export const findUsuarioByLogin = async (login: string) => {
    const { data: { data: usuario } } = await api<Response<Usuario>>({

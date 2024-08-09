@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { useAuthStore } from '../stores'
-import { Procedimiento } from '../interfaces'
+import { Procedimiento } from '../models'
 
 export const useAuthComponents = () => {
    const { userAuth } = useAuthStore()

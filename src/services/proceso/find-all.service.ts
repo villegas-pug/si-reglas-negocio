@@ -1,5 +1,6 @@
 import { api } from '../../config'
-import { Proceso, Response } from '../../interfaces'
+import { Response } from '../../interfaces'
+import { Proceso } from '../../models'
 
 export const findAllProceso = async () => {
    const { data: { data: procesoDb } } = await api<Response<Proceso[]>>({

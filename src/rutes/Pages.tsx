@@ -4,6 +4,7 @@ import { pages as namePages } from '../consts'
 
 // ► Pages
 const ReglasConsistenciaPage = lazy(() => import('../pages/ReglasConsistenciaPage'))
+const ControlHallazgosPage = lazy(() => import('../pages/ControlHallazgosPage'))
 
 // ► Subpag
 const ControlMigratorioSubpag = lazy(() => import('../pages/subpag/ControlMigratorioSubpag'))
@@ -13,7 +14,8 @@ const TramitesInmigracionSubpag = lazy(() => import('../pages/subpag/TramitesInm
 const { PAG, SUB_PAG } = namePages
 
 const {
-   REGLAS_CONSISTENCIA
+   REGLAS_CONSISTENCIA,
+   CONTROL_REGISTROS_INCONSISTENTES
 } = PAG
 
 const {
@@ -29,6 +31,7 @@ type PageComponent = {
 export const pages: PageComponent = {
    // ► Pages:
    [REGLAS_CONSISTENCIA]: <ReglasConsistenciaPage />,
+   [CONTROL_REGISTROS_INCONSISTENTES]: <ControlHallazgosPage />,
 
    // ► Subpag:
    [ALERTAS]: <AlertasSubpag />,

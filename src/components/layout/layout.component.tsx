@@ -5,7 +5,7 @@ import type { MenuProps } from 'antd'
 import { Breadcrumb, Layout, Menu, theme } from 'antd'
 
 import { icons } from '../../consts'
-import { Procedimiento } from '../../interfaces'
+import { Procedimiento } from '../../models'
 import { useAuthComponents } from '../../hooks'
 import { useAuthStore } from '../../stores'
 
@@ -90,7 +90,7 @@ export const LayoutApp: FC<Props> = ({ children }) => {
                </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
-               Sistema de Reglas de Consistencia de Datos ©{new Date().getFullYear()} Creado por Subdirección de Registro de Información Migratoria
+               Sistema de Gestión de Calidad de Datos Migratorios ©{new Date().getFullYear()} Creado por Subdirección de Registro de Información Migratoria
             </Footer>
          </Layout>
       </Layout>

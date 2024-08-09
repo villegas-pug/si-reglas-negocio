@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react'
 import { AxisOptions, Chart, UserSerie } from 'react-charts'
-import { EjecucionScriptDeteccion } from '../../interfaces'
+import { EjecucionScriptDeteccion } from '../../models'
 
 type LineChartProps = {
    label: string

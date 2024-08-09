@@ -1,4 +1,4 @@
-import { Procedimiento, Proceso, ProcesoInternal } from '../interfaces'
+import { Procedimiento, Proceso, ProcesoInternal } from '../models'
 
 type RutaPrincipalMap = {[key: string]: { rutaPrincipal: string, idProcedimiento: number }}
 
