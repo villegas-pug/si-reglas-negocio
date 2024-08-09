@@ -28,6 +28,8 @@ export class ApiQueue {
    }
 
    async processQueue () {
+      if (this.processing) return
+
       this.processing = true
 
       const call = this.queue.shift()
