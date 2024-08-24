@@ -1,18 +1,16 @@
 import { AxiosResponse } from 'axios'
 
-import { useApiStatusStore } from '../stores'
+import { useApiStatusStore, useAuthStore } from '../stores'
 
 import { api } from '../config'
 import { HeaderResponse, Response } from '../interfaces'
 import { requestCode, responseCode } from '../consts'
-import { sleep } from '../helpers'
 
 export const ApiStatusInterceptor = () => {
    api.interceptors.request.use(
       async (request) => {
          useApiStatusStore.getState().apiReset()
          useApiStatusStore.getState().apiLoading(true)
-         await sleep(1)
          return request
       }
    )
@@ -36,8 +34,12 @@ export const ApiStatusInterceptor = () => {
 
          const statusResponse = err.response?.status
 
-         if (statusResponse) { // Si es error del servidor
-            useApiStatusStore.getState().apiMessage(responseCode[err.response?.status], 'error')
+         if (statusResponse) { // Respuesta del servidor
+            const status = err.response?.status
+
+            // 403: '¡Acceso no autorizado!'
+            if (status === 403) useAuthStore.getState().logout()
+            useApiStatusStore.getState().apiMessage(responseCode[status], 'error')
          } else {
             useApiStatusStore.getState().apiMessage(requestCode[err.code], 'error')
          }

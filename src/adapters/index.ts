@@ -1,2 +1,5 @@
 export * from './api-proceso.adapter'
 export * from './api-reglanegocio.adapter'
+export * from './hallazgo-control-migratorio.adapter'
+export * from './metrica-datos-invalidos.adapter'
+export * from './metrica-operador-jz.adapter'

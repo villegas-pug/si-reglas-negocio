@@ -6,6 +6,8 @@ import { AiFillAlert } from 'react-icons/ai'
 import { FaPersonMilitaryToPerson } from 'react-icons/fa6'
 import { FaHome } from 'react-icons/fa'
 import { MdNearbyError } from 'react-icons/md'
+import { GiTargetPrize } from 'react-icons/gi'
+import { GrDocumentTransfer } from 'react-icons/gr'
 
 type Icon = { [key: string]: ReactElement }
 
@@ -22,6 +24,8 @@ export const icons: Icon = {
    // ► SUB_PAG
    PiAirplaneLandingFill: <PiAirplaneLandingFill size={ sizeIconSubpag } />,
    AiFillAlert: <AiFillAlert size={ sizeIconSubpag } />,
-   FaPersonMilitaryToPerson: <FaPersonMilitaryToPerson size={ sizeIconSubpag } />
+   FaPersonMilitaryToPerson: <FaPersonMilitaryToPerson size={sizeIconSubpag} />,
+   GrDocumentTransfer: <GrDocumentTransfer size={ sizeIconSubpag } />,
+   GiTargetPrize: <GiTargetPrize size={ sizeIconSubpag } />
 
 }

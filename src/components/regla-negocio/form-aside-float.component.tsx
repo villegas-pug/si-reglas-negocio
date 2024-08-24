@@ -14,18 +14,18 @@ const reglasValidacion: Rule[] = [
 
 export const FormAsideFloat: FC = () => {
    const { dimensionDb } = useDimensionStore()
-   const { isOpenModal, initialValues, setIsOpenModal } = useReglaNegocioContext()
+   const { isOpenModalCrear, initialValues, setIsOpenModalCrear } = useReglaNegocioContext()
 
-   const handleCloseModal = () => { setIsOpenModal(false) }
+   const handleCloseModal = () => { setIsOpenModalCrear(false) }
 
-   if (!isOpenModal) return <></>
+   if (!isOpenModalCrear) return <></>
 
    return (
       <Drawer
          title="Crear nueva regla"
-         width={ 720}
+         width={ 720 }
          onClose={ handleCloseModal }
-         open={ isOpenModal }
+         open={ isOpenModalCrear }
          styles={{
             body: {
                paddingBottom: 80

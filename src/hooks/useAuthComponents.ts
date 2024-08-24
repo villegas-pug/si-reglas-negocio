@@ -13,7 +13,7 @@ export const useAuthComponents = () => {
       const pag: Procedimiento[] = []
 
       usrProcedimiento?.forEach(({ procedimiento }) => {
-         if (procedimiento.tipo !== 'DYNAMIC_COMPONENT') {
+         if (procedimiento.tipo !== 'DYNAMIC_COMPONENT' && procedimiento.activo) {
             pag.push(procedimiento)
          }
       })

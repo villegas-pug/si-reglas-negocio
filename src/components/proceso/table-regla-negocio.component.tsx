@@ -5,32 +5,41 @@ import { CheckCircleOutlined, CloseCircleOutlined, ConsoleSqlOutlined, DeleteOut
 import { VscDebugRerun } from 'react-icons/vsc'
 import type { TableColumnsType } from 'antd'
 import ReactJson from 'react-json-view'
+import { Zoom } from 'react-awesome-reveal'
 
 import { CustomModal } from '../modal'
 import { Editor } from '../editor-sql'
 import { formatNumber } from '../../helpers'
 import { LineChart } from '../chart'
 
-import { EjecucionScriptDeteccion, ReglaNegocioInternal } from '../../models'
-
 import { createOneRegistroEjecucionScript } from '../../services'
 import { useReglasNegocio } from '../../hooks'
 import { useReglaNegocioContext } from '../../context'
-import { Zoom } from 'react-awesome-reveal'
+import { CardRunningAsyncTasks } from '../regla-negocio'
+
+import { EjecucionScriptDeteccion, ReglaNegocioInternal } from '../../models'
+import { AsyncIterable } from '../../interfaces'
 
 type Props = {
    data: ReglaNegocioInternal[]
 }
 
 export const ReglasNegocioTable: FC<Props> = ({ data }) => {
-   const { setInitialValues, setIsOpenModal: setIsOpenModalCrear } = useReglaNegocioContext()
-
    const sentenciaSqlRef = useRef('SQL ...')
    const resultadoDeteccionRef = useRef('')
    const ejecucionScriptDeteccionRef = useRef<EjecucionScriptDeteccion[]>([])
+   const asyncTasksRef = useRef<AsyncIterable[]>([])
+
    const [isOpenModal, setIsOpenModal] = useState(false)
    const [isOpenModalLineChart, setIsOpenModalLineChart] = useState(false)
    const [isOpenModalResultSet, setIsOpenModalResultSet] = useState(false)
+
+   const {
+      isOpenModalRunningTasks,
+      setInitialValues,
+      setIsOpenModalCrear,
+      setIsOpenModalRunningTasks
+   } = useReglaNegocioContext()
 
    const { procesoOfCurrPath, findReglasNegocioByProcesoOfCurrPath } = useReglasNegocio()
 
@@ -179,19 +188,27 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          }, {
             title: 'Ejecutar Detección',
             align: 'center',
-            render: (_, record) => record.deteccionScript.trim().length > 0
-               ? (
+            render: (_, record) => {
+               if (record.deteccionScript.trim().length === 0) return <></>
+               const callApi = () => createOneRegistroEjecucionScript(procesoOfCurrPath?.idProceso!, record.idCtrlCambioDeteccion)
+
+               asyncTasksRef.current.push({
+                  name: record.idRN,
+                  method: callApi
+               })
+
+               return (
                   <Tooltip title='Ejecutar Script Detección'>
                      <VscDebugRerun
                         style={{ fontSize: 25, cursor: 'pointer' }}
                         onClick={ async () => {
-                           await createOneRegistroEjecucionScript(procesoOfCurrPath?.idProceso!, record.idCtrlCambioDeteccion)
+                           await callApi()
                            findReglasNegocioByProcesoOfCurrPath()
                         }}
                      />
                   </Tooltip>
                )
-               : <></>
+            }
          }
       ]
    ), [])
@@ -202,8 +219,8 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
             <div style={{ marginTop: 5, minWidth: 2200 }}>
                <Table
                   columns={columns}
-                  dataSource={data}
-                  pagination={{ defaultPageSize: 8 }}
+                  dataSource={ data }
+                  pagination={{ defaultPageSize: Infinity }}
                   size='small'
                   scroll={{ y: 'calc(100vh - 470px)' }}
                />
@@ -220,7 +237,16 @@ export const ReglasNegocioTable: FC<Props> = ({ data }) => {
          </CustomModal>
 
          <CustomModal title='Resutado script detección' isOpen={isOpenModalResultSet} setIsOpen={setIsOpenModalResultSet} >
-            <ReactJson src={ JSON.parse(resultadoDeteccionRef.current || '{}') } />
+            <ReactJson collapsed={ true } src={ JSON.parse(resultadoDeteccionRef.current || '{}') } />
+         </CustomModal>
+
+         <CustomModal
+            title={'Ejecución masiva de reglas'}
+            isOpen={isOpenModalRunningTasks}
+            maskClosable={ false }
+            setIsOpen={setIsOpenModalRunningTasks}
+         >
+            <CardRunningAsyncTasks asyncTasks={ asyncTasksRef.current } />
          </CustomModal>
       </>
    )

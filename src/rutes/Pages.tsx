@@ -4,24 +4,30 @@ import { pages as namePages } from '../consts'
 
 // ► Pages
 const ReglasConsistenciaPage = lazy(() => import('../pages/ReglasConsistenciaPage'))
-const ControlHallazgosPage = lazy(() => import('../pages/ControlHallazgosPage'))
+const SeguimientoCalidadDatoPage = lazy(() => import('../pages/SeguimientoCalidadDatoPage'))
 
 // ► Subpag
-const ControlMigratorioSubpag = lazy(() => import('../pages/subpag/ControlMigratorioSubpag'))
-const AlertasSubpag = lazy(() => import('../pages/subpag/AlertasSubpag'))
-const TramitesInmigracionSubpag = lazy(() => import('../pages/subpag/TramitesInmigracionSubpag'))
+const ControlMigratorioSubpag = lazy(() => import('../pages/ControlMigratorioSubpag'))
+const AlertasSubpag = lazy(() => import('../pages/AlertasSubpag'))
+const TramitesInmigracionSubpag = lazy(() => import('../pages/TramitesInmigracionSubpag'))
+const NacionalizacionSubpag = lazy(() => import('../pages/NacionalizacionSubpag'))
+const EmisionDocViaje = lazy(() => import('../pages/EmisionDocViaje'))
+const SeguimientoCalidadControlMigratorioSubpag = lazy(() => import('../pages/seguimiento-calidad-control-migratorio/SeguimientoCalidadControlMigratorioSubpag'))
 
 const { PAG, SUB_PAG } = namePages
 
 const {
    REGLAS_CONSISTENCIA,
-   CONTROL_REGISTROS_INCONSISTENTES
+   SEGUIMIENTO_CALIDAD_DATOS
 } = PAG
 
 const {
-   ALERTAS,
    CONTROL_MIGRATORIO,
-   TRAMITE_INMIGRACION
+   TRAMITE_INMIGRACION,
+   NACIONALIZACION,
+   EMISION_DOC_VIAJE,
+   ALERTAS,
+   SEGUIMIENTO_CALIDAD_CONTROL_MIGRATORIO
 } = SUB_PAG
 
 type PageComponent = {
@@ -31,10 +37,13 @@ type PageComponent = {
 export const pages: PageComponent = {
    // ► Pages:
    [REGLAS_CONSISTENCIA]: <ReglasConsistenciaPage />,
-   [CONTROL_REGISTROS_INCONSISTENTES]: <ControlHallazgosPage />,
+   [SEGUIMIENTO_CALIDAD_DATOS]: <SeguimientoCalidadDatoPage />,
 
    // ► Subpag:
    [ALERTAS]: <AlertasSubpag />,
    [CONTROL_MIGRATORIO]: <ControlMigratorioSubpag />,
-   [TRAMITE_INMIGRACION]: <TramitesInmigracionSubpag />
+   [TRAMITE_INMIGRACION]: <TramitesInmigracionSubpag />,
+   [NACIONALIZACION]: <NacionalizacionSubpag />,
+   [EMISION_DOC_VIAJE]: <EmisionDocViaje />,
+   [SEGUIMIENTO_CALIDAD_CONTROL_MIGRATORIO]: <SeguimientoCalidadControlMigratorioSubpag />
 }

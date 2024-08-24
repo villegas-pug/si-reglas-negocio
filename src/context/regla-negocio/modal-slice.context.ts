@@ -1,16 +1,20 @@
 import { StateCreator } from 'zustand'
 
 type State = {
-   isOpenModal: boolean
+   isOpenModalCrear: boolean
+   isOpenModalRunningTasks: boolean
 }
 
 type Action = {
-   setIsOpenModal: (isOpen: boolean) => void
+   setIsOpenModalCrear: (isOpen: boolean) => void
+   setIsOpenModalRunningTasks: (isOpen: boolean) => void
 }
 
 export type ModalReglaNegocioState = State & Action
 
 export const modalReglaNegocioSlice: StateCreator<ModalReglaNegocioState> = (set) => ({
-   isOpenModal: false,
-   setIsOpenModal: (isOpen) => set({ isOpenModal: isOpen })
+   isOpenModalCrear: false,
+   isOpenModalRunningTasks: false,
+   setIsOpenModalCrear: (isOpen) => set({ isOpenModalCrear: isOpen }),
+   setIsOpenModalRunningTasks: (isOpen) => set({ isOpenModalRunningTasks: isOpen })
 })

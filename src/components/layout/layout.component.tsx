@@ -59,7 +59,7 @@ export const LayoutApp: FC<Props> = ({ children }) => {
             collapsible
             collapsed={collapsed}
             onCollapse={(value) => setCollapsed(value)}
-            width={ 270 }
+            width={ 320 }
          >
             <div style={{ marginTop: 20 }} />
             <Menu

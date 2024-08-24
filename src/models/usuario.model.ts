@@ -22,6 +22,7 @@ export interface Usuario {
    dni: string
    regimenLaboral: string
    foto: string
+   idJefatura: string
    activo: string
 
 }

@@ -10,29 +10,42 @@ import { formatNumber } from '../../helpers'
 import { useReglasNegocio } from '../../hooks'
 import { FormAsideFloat } from '../forms'
 import { useReglaNegocioContext } from '../../context'
+import { VscRunAll } from 'react-icons/vsc'
 
 const sizeIcon = 35
 
 export const HeaderReglaNegocio: FC = () => {
    const { totalReglasOfCurrPath, granTotalDeteccionOfCurrPath, granTotalValidacionOfCurrPath } = useReglasNegocio()
-   const { setIsOpenModal, resetInitialValues } = useReglaNegocioContext()
+   const {
+      setIsOpenModalCrear,
+      resetInitialValues,
+      setIsOpenModalRunningTasks
+   } = useReglaNegocioContext()
 
    return (
       <>
          <Zoom duration={ 1500 }>
             <Row>
-               <Col span={8}>
-                  <Row justify='start' align='bottom' style={{ height: '100%' }}>
+               <Col span={ 8 }>
+                  <Row justify='start' align='bottom' style={{ height: '100%', gap: 3 }}>
                      <Button
                         type='primary'
                         size='large'
                         icon={<BsFileRuledFill color='#fff' />}
                         onClick={() => {
                            resetInitialValues()
-                           setIsOpenModal(true)
+                           setIsOpenModalCrear(true)
                         }}
                      >
                         Nueva regla
+                     </Button>
+
+                     <Button
+                        size='large'
+                        icon={<VscRunAll />}
+                        onClick={() => setIsOpenModalRunningTasks(true) }
+                     >
+                        Ejecutar todas reglas
                      </Button>
                   </Row>
                </Col>

@@ -1,11 +1,12 @@
-import { FC, useEffect } from 'react'
+/* import { ReglasNegocioTable } from '../../components' */
+import { useEffect } from 'react'
 
-import { HeaderReglaNegocio, ReglasNegocioTable } from '../../components'
+import { useReglasNegocio } from '../hooks'
+import { useReglaNegocioStore } from '../stores'
 
-import { useReglaNegocioStore } from '../../stores'
-import { useReglasNegocio } from '../../hooks'
+import { HeaderReglaNegocio, ReglasNegocioTable } from '../components'
 
-const ControlMigratorioSubpag: FC = () => {
+const TramitesInmigracionSubpag = () => {
    const { reglaNegocioInternalDb } = useReglaNegocioStore()
    const { findReglasNegocioByProcesoOfCurrPath } = useReglasNegocio()
 
@@ -22,4 +23,4 @@ const ControlMigratorioSubpag: FC = () => {
    )
 }
 
-export default ControlMigratorioSubpag
+export default TramitesInmigracionSubpag

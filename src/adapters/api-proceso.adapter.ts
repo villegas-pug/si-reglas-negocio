@@ -7,7 +7,7 @@ export const adaptApiProcesoToInternal = (apiProceso: Proceso[], apiProcedimient
       .filter(proc => proc.tipo === 'SUB_PAG')
       .reduce((map, { nombre, rutaPrincipal, idProcedimiento }) => (map[nombre] = { rutaPrincipal, idProcedimiento }, map), {} as RutaPrincipalMap)
 
-   const procesoInternalDb: ProcesoInternal[] = apiProceso.map((proceso) => {
+   const procesoInternalDb: ProcesoInternal[] = apiProceso.filter(proceso => proceso.activo).map((proceso) => {
       return {
          ...proceso,
          idProcedimiento: rutaPrincipalMap[proceso.nombre].idProcedimiento,

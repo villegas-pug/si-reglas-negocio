@@ -3,9 +3,7 @@ import { FC, useEffect, useMemo } from 'react'
 import { Flex } from 'antd'
 import { Slide } from 'react-awesome-reveal'
 
-import { CardChart } from '../components/card-proceso-negocio'
-
-import { PieProcesoNegocio } from '../components'
+import { CardChart, PieProcesoNegocio } from '../components'
 
 import { formatNumber } from '../helpers'
 import { useDimensionStore, useProcesoStore } from '../stores'

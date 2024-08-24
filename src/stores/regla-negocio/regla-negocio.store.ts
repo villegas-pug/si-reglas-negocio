@@ -15,6 +15,7 @@ type Action = {
 export const useReglaNegocioStore = create<State & Action>((set) => ({
    reglaNegocio: {} as ReglaNegocioInternal,
    reglaNegocioInternalDb: [],
+   hallazgosControlMigratorioDb: [],
    findReglasNegocioByProceso: async (proceso) => {
       const reglasNegocio = await findReglasNegocioByProceso(proceso)
       set({ reglaNegocioInternalDb: adaptApiReglasNegocioToInternal(reglasNegocio) })
