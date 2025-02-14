@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 
-import { crearReglaNegocioSlice, type CrearReglaNegocioState } from './crear-slice.context'
-import { modalReglaNegocioSlice, type ModalReglaNegocioState } from './modal-slice.context'
-import { asyncTasksSlice, type AsyncTasksState } from './async-tasks-slice.context'
+import { crearReglaNegocioSlice, type CrearReglaNegocioState } from './crear-regla-negocio.slice'
+import { modalReglaNegocioSlice, type ModalReglaNegocioState } from './modal-regla-negocio.slice'
+import { asyncTasksSlice, type AsyncTasksState } from './async-tasks.slice'
 
 type ReglaNegocioContextState = CrearReglaNegocioState & ModalReglaNegocioState & AsyncTasksState
 
@@ -10,5 +10,4 @@ export const useReglaNegocioContext = create<ReglaNegocioContextState>()((...res
    ...crearReglaNegocioSlice(...rest),
    ...modalReglaNegocioSlice(...rest),
    ...asyncTasksSlice(...rest)
-
 }))

@@ -1,6 +1,5 @@
 export * from './useAuthComponents'
 export * from './useControlHallazgos'
 export * from './useLocalStorage'
-export * from './useMetricasJZ'
 export * from './useQueueApi'
 export * from './useReglasNegocio'

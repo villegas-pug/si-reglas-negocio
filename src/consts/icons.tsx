@@ -8,6 +8,8 @@ import { FaHome } from 'react-icons/fa'
 import { MdNearbyError } from 'react-icons/md'
 import { GiTargetPrize } from 'react-icons/gi'
 import { GrDocumentTransfer } from 'react-icons/gr'
+import { TbBrandDatabricks } from 'react-icons/tb'
+import { LuWorkflow } from 'react-icons/lu'
 
 type Icon = { [key: string]: ReactElement }
 
@@ -18,14 +20,16 @@ export const icons: Icon = {
 
    // ► PAG
    FaHome: <FaHome size={ sizeIconPag } />,
-   BsDatabaseX: <BsDatabaseX size={sizeIconPag} />,
-   MdNearbyError: <MdNearbyError size={sizeIconPag} />,
+   BsDatabaseX: <BsDatabaseX size={ sizeIconPag } />,
+   MdNearbyError: <MdNearbyError size={ sizeIconPag } />,
+   TbBrandDatabricks: <TbBrandDatabricks size={ sizeIconPag } />,
 
    // ► SUB_PAG
    PiAirplaneLandingFill: <PiAirplaneLandingFill size={ sizeIconSubpag } />,
    AiFillAlert: <AiFillAlert size={ sizeIconSubpag } />,
    FaPersonMilitaryToPerson: <FaPersonMilitaryToPerson size={sizeIconSubpag} />,
    GrDocumentTransfer: <GrDocumentTransfer size={ sizeIconSubpag } />,
-   GiTargetPrize: <GiTargetPrize size={ sizeIconSubpag } />
+   GiTargetPrize: <GiTargetPrize size={sizeIconSubpag} />,
+   LuWorkflow: <LuWorkflow size={sizeIconSubpag} />
 
 }

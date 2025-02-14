@@ -1,1 +1,1 @@
-export * from './find-all.service'
+export * from './find-all-proceso.service'

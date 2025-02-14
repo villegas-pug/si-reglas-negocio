@@ -15,22 +15,20 @@ import 'ace-builds/src-noconflict/ext-language_tools'
 
 type Props = {
    sentenciaSql: string
+   onChange?: (value: string) => void
    width?: number
 }
 
-export const Editor: FC<Props> = ({ sentenciaSql, width = 550 }) => {
+export const Editor: FC<Props> = ({ sentenciaSql, width = 850, onChange }) => {
    const name = 'unique name'
    useEffect(() => {
       const langTools = ace.require('ace/ext/language_tools')
       // data stub:
       const sqlTables = [
-         { name: 'users', description: 'Users in the system' },
-         { name: 'userGroups', description: 'User groups to which users belong' },
-         { name: 'customers', description: 'Customer entries' },
-         { name: 'companies', description: 'Legal entities of customers' },
-         { name: 'loginLog', description: 'Log entries for user log-ins' },
-         { name: 'products', description: 'Products offered in the system' },
-         { name: 'productCategories', description: 'Different product categories' }
+         { name: 'SimMovMigra', description: 'Control Migratorio' },
+         { name: 'SimPersona', description: 'Control Migratorio' },
+         { name: 'SimDependencia', description: '...' },
+         { name: 'SimCalidadMigratoria', description: '...' }
       ]
 
       const sqlTablesCompleter = {
@@ -63,6 +61,7 @@ export const Editor: FC<Props> = ({ sentenciaSql, width = 550 }) => {
             enableSnippets: true,
             fontSize: 15
          }}
+         onChange={ onChange }
       />
    )
 }

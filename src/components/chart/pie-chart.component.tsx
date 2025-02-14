@@ -1,36 +1,30 @@
-import { FC } from 'react'
-
-import { DefaultizedPieValueType, PieChart, PieValueType } from '@mui/x-charts'
-import { Typography } from 'antd'
-
-type Props = {
-   title: string
-   data: Omit<PieValueType, 'id'>[]
-   arcLabel?: (params: Partial<DefaultizedPieValueType>) => string
+import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts'
+type Props<T> = {
+   data: T[]
+   dataKey: keyof T
+   getLabel: (data: T) => string
+   getCellKey: (data: T) => string
+   getCellFill: (data: T) => string
    width?: number
    height?: number
 }
 
-export const MyPieChart: FC<Props> = ({ title, data, arcLabel, width = 200, height = 200 }) => {
+export const MyPieChart = <T extends unknown>({ data, dataKey, getLabel, getCellKey, getCellFill, width = 700, height = 400 }: Props<T>) => {
    return (
-      <div>
-         <Typography.Title level={ 5 }>{ title }</Typography.Title>
-         <PieChart
-            title={ 'sdasdas' + title }
-            series={[
+      <ResponsiveContainer width={ width } height={ height }>
+         <PieChart>
+            <Pie
+               dataKey={ dataKey as string }
+               data={ data }
+               label={ getLabel }
+            >
                {
-                  data,
-                  innerRadius: 30,
-                  outerRadius: 80,
-                  paddingAngle: 5,
-                  cornerRadius: 5,
-                  startAngle: -90,
-                  arcLabel
+                  data.map(record => (
+                     <Cell key={ getCellKey(record) } fill={ getCellFill(record) } />
+                  ))
                }
-            ]}
-            width={ width }
-            height={ height }
-         />
-      </div>
+            </Pie>
+         </PieChart>
+      </ResponsiveContainer>
    )
 }

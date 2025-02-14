@@ -11,14 +11,12 @@ export const PrivateRoutes = () => {
    if (!isAuth) return <Navigate to={ PUBLIC } replace />
 
    return (
-      <>
-         <LayoutApp>
-            <Suspense fallback={ <ModalLoading /> }>
-               <Outlet />
-               <ModalLoading />
-            </Suspense>
-            <LogoutButton />
-         </LayoutApp>
-      </>
+      <LayoutApp>
+         <Suspense fallback={ <ModalLoading /> }>
+            <Outlet />
+            <ModalLoading />
+         </Suspense>
+         <LogoutButton />
+      </LayoutApp>
    )
 }

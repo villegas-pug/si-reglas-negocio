@@ -24,6 +24,7 @@ export interface Usuario {
    foto: string
    idJefatura: string
    activo: string
+   idOperador: number
 
 }
 

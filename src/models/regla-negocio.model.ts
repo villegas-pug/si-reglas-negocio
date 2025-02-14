@@ -25,6 +25,7 @@ export interface ControlCambio {
    activo: boolean
    observaciones: string
    tipoScript: TipoScript
+   runtime: number
 }
 
 export interface TipoScript {
@@ -63,6 +64,7 @@ export interface ReglaNegocioInternal extends Omit<ReglaNegocio, 'controlCambios
 
    // RegistrosEjecucionScript
    totalDeteccionScript: number
+   runtimeDeteccion: number
    totalValidacionScript: number
 
    ejecucionScriptDeteccion: EjecucionScriptDeteccion[]

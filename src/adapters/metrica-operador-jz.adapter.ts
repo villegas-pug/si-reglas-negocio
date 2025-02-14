@@ -1,4 +1,4 @@
-import { MetricaOperadorJZ, MetricaOperadorJZInternal } from '../models'
+import { MetricaOperadorJZ, MetricaOperadorJZInternal } from '../business/monitoreo-calidad-datos/models'
 
 export const adaptMetricaOperadorJZ = (metricaOperadorJZ: MetricaOperadorJZ[]): MetricaOperadorJZInternal[] => {
    const metricaOperadorJZMap = metricaOperadorJZ.reduce((map, mt) => {

@@ -25,6 +25,8 @@ export const LineChart: FC<LineChartProps> = ({ label, data: dataSeries, width =
    }), [])
    const secondaryAxes = useMemo((): AxisOptions<EjecucionScriptDeteccion>[] => [{ getValue: record => record.resultado, elementType: 'line' }], [])
 
+   console.log(data)
+
    return (
       <div style={{ width, height }}>
          <Chart

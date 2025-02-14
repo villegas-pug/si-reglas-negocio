@@ -5,7 +5,7 @@ import { persist } from 'zustand/middleware'
 import { localStorage } from '../../consts'
 import { Usuario } from '../../models'
 import { api } from '../../config'
-import { findUsuarioByLogin } from '../../services'
+import { findAllUsers, findUsuarioByLogin } from '../../services'
 
 const { AUTH_KEY } = localStorage
 
@@ -14,12 +14,14 @@ type State = {
    token: string
    loginAuth: string
    userAuth: Usuario
+   users: Usuario[]
 }
 
 type Action = {
    login: (cred: Pick<Usuario, 'login' | 'password'>) => Promise<void>
    logout: () => void
    findByLogin: (login: string) => Promise<void>
+   findAllUsers: () => Promise<void>
 }
 
 export const useAuthStore = create(
@@ -28,6 +30,7 @@ export const useAuthStore = create(
       token: '',
       loginAuth: '',
       userAuth: {} as Usuario,
+      users: [],
 
       login: async (cred) => {
          const { headers, status } = await api({
@@ -46,6 +49,10 @@ export const useAuthStore = create(
       findByLogin: async (login) => {
          const user = await findUsuarioByLogin(login)
          set({ userAuth: user })
+      },
+      findAllUsers: async () => {
+         const users = await findAllUsers()
+         set({ users })
       }
    }), {
       name: AUTH_KEY

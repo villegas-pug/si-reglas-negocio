@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { Button, Flex, Descriptions, Tag, Divider, Tooltip } from 'antd'
 import type { DescriptionsProps } from 'antd'
 import { CaretRightOutlined, PauseOutlined, RetweetOutlined } from '@ant-design/icons'
@@ -15,13 +15,9 @@ export const CardRunningAsyncTasks: FC<Props> = ({ asyncTasks }) => {
 
    useEffect(() => { toggleQueueApi(false) }, [])
 
-   const asyncTasksUnique = useMemo(() => {
-      return asyncTasks.filter((_, i, self) => i === self.findIndex(task => task.name === _.name))
-   }, [asyncTasks])
-
    const handleExecute = useCallback(() => {
-      addToQueueApi(asyncTasksUnique)
-   }, [asyncTasksUnique])
+      addToQueueApi(asyncTasks)
+   }, [asyncTasks])
 
    const callsErr = notyQueueApiStatus.callsErr.calls
 
@@ -36,7 +32,7 @@ export const CardRunningAsyncTasks: FC<Props> = ({ asyncTasks }) => {
    }
 
    return (
-      <Flex vertical gap={10} style={{ width: 500 }}>
+      <Flex vertical gap={10} style={{ width: 520 }}>
          <Flex gap={2}>
             <Tooltip title='Iniciar'>
                <Button

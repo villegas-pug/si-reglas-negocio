@@ -71,7 +71,9 @@ export const LayoutApp: FC<Props> = ({ children }) => {
             />
          </Sider>
          <Layout>
+
             <Header style={{ padding: 0, background: colorBgContainer, height: 5 }} />
+
             <Content style={{ margin: '0 16px' }}>
                <Breadcrumb style={{ margin: '16px 0' }}>
                   <Breadcrumb.Item>Usuario</Breadcrumb.Item>
@@ -89,9 +91,11 @@ export const LayoutApp: FC<Props> = ({ children }) => {
                   { children }
                </div>
             </Content>
+
             <Footer style={{ textAlign: 'center' }}>
-               Sistema de Gestión de Calidad de Datos Migratorios ©{new Date().getFullYear()} Creado por Subdirección de Registro de Información Migratoria
+               Sistema de Gestión de Calidad de Datos ©{new Date().getFullYear()}
             </Footer>
+
          </Layout>
       </Layout>
    )

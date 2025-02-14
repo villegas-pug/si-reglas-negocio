@@ -1,2 +1,2 @@
 export * from './regla-negocio.store'
-export * from './seguimiento-calidad-hallazgo.store'
+export * from '../../monitoreo-control-migratorio/context/monitoreo-control-migratorio.slice'

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { AsyncIterable, StatusOfProcessed } from '../interfaces'
-import { sleep } from '../helpers'
+import { sleep } from '../utils'
 /* import { sleep } from '../helpers' */
 
 const initialQueueStatus: StatusOfProcessed = {

@@ -3,11 +3,7 @@ import { useState } from 'react'
 
 export const useLocalStorage = (key: LocalStorageKey) => {
    const [value, setValue] = useState(() => {
-      try {
-         return JSON.parse(localStorage.getItem(key) || '')
-      } catch (err) {
-         return false
-      }
+      return JSON.parse(localStorage.getItem(key) || '')
    })
 
    const setLocalStorage = (key: LocalStorageKey, item: any) => {
@@ -16,14 +12,7 @@ export const useLocalStorage = (key: LocalStorageKey) => {
    }
 
    const getLocalStorage = (key: LocalStorageKey) => {
-      let item
-      try {
-         item = JSON.parse(localStorage.getItem(key) || '')
-      } catch (err) {
-         item = undefined
-      }
-
-      setValue(item)
+      setValue(JSON.parse(localStorage.getItem(key) || ''))
    }
 
    return {

@@ -4,8 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { PrivateRoutes } from './PrivateRoutes'
 import { PublicRoutes } from './PublicRoutes'
 
-import { Login } from '../pages/PortalPage'
-import { NotFoundPage } from '../pages/NotFoundPage'
+import { Login } from '../portal/PortalPage'
+import { NotFoundPage } from '../not-found/NotFoundPage'
 
 import { NOT_FOUND, PRIVATE, PUBLIC } from '../consts'
 

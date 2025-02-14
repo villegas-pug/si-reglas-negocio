@@ -32,9 +32,7 @@ export const ApiStatusInterceptor = () => {
       (err) => {
          useApiStatusStore.getState().apiLoading(false)
 
-         const statusResponse = err.response?.status
-
-         if (statusResponse) { // Respuesta del servidor
+         if (err.response?.status) { // Respuesta del servidor
             const status = err.response?.status
 
             // 403: '¡Acceso no autorizado!'

@@ -5,5 +5,5 @@ const BASE_URL = 'http://172.27.250.22:6090/api'
 
 export const api = axios.create({
    baseURL: BASE_URL,
-   timeout: 120_000
+   timeout: 3_600_000
 })

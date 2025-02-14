@@ -39,6 +39,7 @@ export const adaptApiReglasNegocioToInternal = (reglasNegocio: ReglaNegocio[]): 
          idCtrlCambioDeteccion: deteccion?.idRNControlCambio || 0,
          idCtrlCambioValidacion: validacion?.idRNControlCambio || 0,
          deteccionScript: deteccion?.script || '',
+         runtimeDeteccion: deteccion?.runtime || 0,
          validacionScript: validacion?.script || '',
          totalDeteccionScript: deteccionScript?.resultado || 0,
          totalValidacionScript: validacionScript?.resultado || 0,
