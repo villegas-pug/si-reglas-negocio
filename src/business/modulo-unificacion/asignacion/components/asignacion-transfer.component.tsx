@@ -19,7 +19,7 @@ const AsignacionTransfer: FC = () => {
             onChange={ onChange }
             render={ (item) => `${item.nombres}` }
             rowKey={(item) => item.idOperador}
-            listStyle={{ width: '25vw', height: '60vh' }}
+            listStyle={{ width: '30rem', height: '60vh' }}
             pagination={{ pageSize: 10 }}
             oneWay
          />

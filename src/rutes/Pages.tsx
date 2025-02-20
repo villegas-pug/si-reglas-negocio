@@ -14,6 +14,7 @@ const NacionalizacionSubpag = lazy(() => import('../business/nacionalizacion/Nac
 const EmisionDocViaje = lazy(() => import('../business/emision-doc-viaje/EmisionDocViaje'))
 const MonitoreoControlMigratorioJZSubPag = lazy(() => import('../business/monitoreo-control-migratorio/pages/MonitoreoControlMigratorioJZSubPag'))
 const ControlAsignacionSubpag = lazy(() => import('../business/modulo-unificacion/pages/ControlAsignacionSubpag'))
+const AuditoriaRegistrosSubpag = lazy(() => import('../business/modulo-unificacion/pages/AuditoriaRegistrosSubpag'))
 
 const { PAG, SUB_PAG } = namePages
 
@@ -29,7 +30,8 @@ const {
    EMISION_DOC_VIAJE,
    ALERTAS,
    SEGUIMIENTO_CALIDAD_CONTROL_MIGRATORIO,
-   CONTROL_ASIGNACIONES
+   CONTROL_ASIGNACIONES,
+   AUDITORIA_REGISTROS
 } = SUB_PAG
 
 type PageComponent = {
@@ -48,5 +50,6 @@ export const pages: PageComponent = {
    [NACIONALIZACION]: <NacionalizacionSubpag />,
    [EMISION_DOC_VIAJE]: <EmisionDocViaje />,
    [SEGUIMIENTO_CALIDAD_CONTROL_MIGRATORIO]: <MonitoreoControlMigratorioJZSubPag />,
-   [CONTROL_ASIGNACIONES]: <ControlAsignacionSubpag />
+   [CONTROL_ASIGNACIONES]: <ControlAsignacionSubpag />,
+   [AUDITORIA_REGISTROS]: <AuditoriaRegistrosSubpag />
 }

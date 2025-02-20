@@ -10,6 +10,7 @@ import { GiTargetPrize } from 'react-icons/gi'
 import { GrDocumentTransfer } from 'react-icons/gr'
 import { TbBrandDatabricks } from 'react-icons/tb'
 import { LuWorkflow } from 'react-icons/lu'
+import { OrderedListOutlined } from '@ant-design/icons'
 
 type Icon = { [key: string]: ReactElement }
 
@@ -30,6 +31,7 @@ export const icons: Icon = {
    FaPersonMilitaryToPerson: <FaPersonMilitaryToPerson size={sizeIconSubpag} />,
    GrDocumentTransfer: <GrDocumentTransfer size={ sizeIconSubpag } />,
    GiTargetPrize: <GiTargetPrize size={sizeIconSubpag} />,
-   LuWorkflow: <LuWorkflow size={sizeIconSubpag} />
+   LuWorkflow: <LuWorkflow size={sizeIconSubpag} />,
+   OrderedListOutlined: <OrderedListOutlined size={ sizeIconSubpag } />
 
 }

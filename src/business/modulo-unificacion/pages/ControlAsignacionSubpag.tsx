@@ -3,6 +3,7 @@ import AsignacionTransfer from '../asignacion/components/asignacion-transfer.com
 import { useAuthStore } from '../../../stores'
 import { AsignacionHeader } from '../asignacion/components'
 import { useAsignacionContext } from '../asignacion/context'
+import { Fade, Zoom } from 'react-awesome-reveal'
 
 const ControlAsignacionSubpag: FC = () => {
    const { findAllUsers } = useAuthStore()
@@ -14,10 +15,14 @@ const ControlAsignacionSubpag: FC = () => {
    return (
       <>
          {/* Header */}
-         <AsignacionHeader />
+         <Zoom>
+            <AsignacionHeader />
+         </Zoom>
 
          {/* Body  */}
-         <AsignacionTransfer />
+         <Fade>
+            <AsignacionTransfer />
+         </Fade>
       </>
    )
 }

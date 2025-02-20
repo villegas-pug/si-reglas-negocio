@@ -11,6 +11,7 @@ export const pages = {
       EMISION_DOC_VIAJE: 'Emisión de Doc. Viaje',
       NACIONALIZACION: 'Nacionalización',
       SEGUIMIENTO_CALIDAD_CONTROL_MIGRATORIO: 'Seguimiento Control Migratorio',
-      CONTROL_ASIGNACIONES: 'Control de Asignaciones'
+      CONTROL_ASIGNACIONES: 'Control de Asignaciones',
+      AUDITORIA_REGISTROS: 'Auditoría de registros'
    }
 }

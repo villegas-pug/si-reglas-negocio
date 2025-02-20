@@ -1,133 +1,127 @@
-import React, { FC, useState } from 'react'
+import { FC } from 'react'
 
 import {
-   Button, Input, Select, Checkbox, Form,
-   Cascader,
-   ColorPicker,
-   DatePicker,
-   InputNumber,
-   Radio,
-   Rate,
-   Slider,
-   Switch,
-   TreeSelect,
-   Upload
+   Button,
+   Input,
+   Select,
+   Form,
+   DatePicker
 } from 'antd'
-import { NumberOutlined, SaveOutlined, PlusOutlined } from '@ant-design/icons'
+import { NumberOutlined, SaveOutlined } from '@ant-design/icons'
 import { useAsignacionContext } from '../context'
-import { TipoAsignacion } from '../models'
-import { DefaultOptionType } from 'antd/es/select'
+import dayjs from 'dayjs'
 
 import type { FormProps } from 'antd'
+import { RegisterAssignmentDto } from '../interfaces'
+import { Rule } from 'antd/es/form'
+import { registerTasksAssignment } from '../services'
+import { useApiStatusStore } from '../../../../stores'
+import { adaptEntitiesToAntdesignOptionType } from '../../../../adapters'
 
-const adaptTipoAsignacionToOptionType = (tipoAsignaciones: TipoAsignacion[]) => {
-   const optionTypes: DefaultOptionType[] = tipoAsignaciones.map(tipo => ({
-      label: tipo.sDetalleAsignacion,
-      value: tipo.idTipoAsignacion
-   }))
-   return optionTypes
-}
+const inputAsignHeaderRules: Rule[] = [{
+   required: true, message: '¡Campo requerido!'
+}]
 
 export const AsignacionHeader: FC = () => {
-   const { tipoAsignacionDb } = useAsignacionContext()
+   const { isLoading: isLoadingRequets } = useApiStatusStore()
+   const { tipoAsignacionDb, selectedIdsOperador, resetSelectedIdsOperador } = useAsignacionContext()
 
-   const tipoAsignaciones = adaptTipoAsignacionToOptionType(tipoAsignacionDb)
+   const [frmAssign] = Form.useForm()
 
-   return (
-      <div style={{
-         margin: 'auto',
-         width: '52vw',
-         height: 100,
-         display: 'flex',
-         justifyContent: 'flex-start',
-         alignItems: 'center',
-         gap: 5
-      }}>
+   const onFinish: FormProps<RegisterAssignmentDto>['onFinish'] = async ({ cantidad, fechaAsignaciones, idTipoAsignacion }) => {
+      const registerAssignment: Partial<RegisterAssignmentDto>[] = selectedIdsOperador.map(idOperador => {
+         return ({
+            cantidad,
+            fechaAsignaciones,
+            idTipoAsignacion,
+            idOperador: Number(idOperador)
+         })
+      })
 
-         <Input
-            type='date'
-            size='large'
-            /* prefix={<NumberOutlined />} */
-            style={{
-               width: 155
-            }}
-            autoFocus
-         />
+      // Reset input's
+      await registerTasksAssignment(registerAssignment)
+      frmAssign.setFieldsValue({
+         fechaAsignacion: dayjs()
+      })
 
-         <Select
-            placeholder='Selecciona asignación'
-            optionFilterProp='label'
-            size='large'
-            /* onChange={onChange} */
-            options={ tipoAsignaciones }
-            style={{
-               width: 220
-            }}
-         />
+      resetSelectedIdsOperador()
+   }
 
-         <Button
-            size='large'
-            icon={ <SaveOutlined style={{ fontSize: 20 }} /> }
-         >
-            Registrar
-         </Button>
-
-      </div>
-   )
-}
-
-const FormDisabledDemo: React.FC = () => {
-   const onFinish: FormProps = (values) => {
-      console.log({ values })
+   const disabledDate = (current: any) => {
+      return current && current < dayjs().startOf('day')
    }
 
    return (
-      <>
-         <Form
-            labelCol={{ span: 4 }}
-            wrapperCol={{ span: 14 }}
-            layout="horizontal"
-            style={{ maxWidth: 600 }}
-            onFinish={ onFinish }
+      <Form
+         form={ frmAssign }
+         layout='horizontal'
+         onFinish={onFinish}
+         style={{ margin: 'auto', minWidth: 1700, display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}
+      >
+         <Form.Item
+            name='cantidad'
+            label='Cantidad'
+            initialValue={ 300 }
+            rules={ inputAsignHeaderRules }
          >
+            <Input
+               type='number'
+               size='large'
+               prefix={<NumberOutlined />}
+               style={{
+                  width: 150,
+                  color: '#19c822',
+                  fontSize: 18
+               }}
+               autoFocus
+            />
+         </Form.Item>
 
-            <Form.Item label="Input">
-               <Input
-                  type='number'
-                  name=
-                  size='large'
-                  defaultValue={ '200' }
-                  prefix={<NumberOutlined />}
-                  style={{
-                     width: 120,
-                     color: '#19c822',
-                     fontSize: 22
-                  }}
-                  autoFocus
-               />
-            </Form.Item>
+         <Form.Item
+            name='fechaAsignaciones'
+            label='Fecha asignación'
+            initialValue={ dayjs() }
+            rules={ inputAsignHeaderRules }
+         >
+            <DatePicker
+               multiple
+               maxTagCount='responsive'
+               size='large'
+               style={{ width: 900 }}
+               disabledDate={disabledDate}
+            />
 
-            <Form.Item label="Select">
-               <Select>
-                  <Select.Option value="demo">Demo</Select.Option>
-               </Select>
-            </Form.Item>
+         </Form.Item>
 
-            <Form.Item label="DatePicker">
-               <DatePicker />
-            </Form.Item>
+         <Form.Item
+            name='idTipoAsignacion'
+            label='Tipo asignación'
+            initialValue={ 1 }
+            rules={ inputAsignHeaderRules }
+         >
+            <Select
+               size='large'
+               style={{ width: 120 }}
+               disabled
+            >
+               {
+                  adaptEntitiesToAntdesignOptionType(tipoAsignacionDb, 'sDetalleAsignacion', 'idTipoAsignacion').map(({ label, value }) => (
+                     <Select.Option key={ value } value={ value }>{ label }</Select.Option>
+                  ))
+               }
+            </Select>
+         </Form.Item>
 
-            <Form.Item label="InputNumber">
-               <InputNumber />
-            </Form.Item>
-
-            <Form.Item label="Button">
-               <Button>Button</Button>
-            </Form.Item>
-
-         </Form>
-      </>
+         <Button
+            htmlType='submit'
+            type='primary'
+            size='large'
+            disabled={selectedIdsOperador.length === 0}
+            loading={ isLoadingRequets }
+            icon={ <SaveOutlined style={{ fontSize: 20 }} /> }
+         >
+            Asignar
+         </Button>
+      </Form>
    )
 }
-
-export default () => <FormDisabledDemo />

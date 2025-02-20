@@ -11,6 +11,7 @@ type Props = {
 }
 
 export const CustomModal: FC<Props> = ({ title, isOpen, maskClosable = true, handleIsOpen, children }) => {
+   if (!isOpen) return <></>
    return (
       <Modal
          title={

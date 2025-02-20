@@ -15,16 +15,18 @@ type State = {
 
 type Action = {
    addIdsOperadorToSelection: (users: Key[]) => void
+   resetSelectedIdsOperador: () => void
    findAllTipoAsignacion: () => Promise<void>
 }
 
 export type AsignacionState = State & Action
 
-export const AsignacionSlice: StateCreator<AsignacionState> = (set) => ({
+export const asignacionSlice: StateCreator<AsignacionState> = (set) => ({
    availableUsers: adaptUsersByArea(useAuthStore.getState().users, 'SRIM'),
    selectedIdsOperador: [],
    tipoAsignacionDb: [],
    addIdsOperadorToSelection: (ids) => set({ selectedIdsOperador: ids }),
+   resetSelectedIdsOperador: () => { set({ selectedIdsOperador: [] }) },
    findAllTipoAsignacion: async () => {
       const tipoAsignacionDb = await findAllTipoAsignacion()
       set({ tipoAsignacionDb })
